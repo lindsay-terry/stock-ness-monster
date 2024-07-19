@@ -1,0 +1,27 @@
+[
+    {
+        "item_name": "Keyboard",
+        "price": "9.99",
+        "stock": 100
+    },
+    {
+        "item_name": "Mouse",
+        "price": "19.99",
+        "stock": 50
+    },
+    {
+        "item_name": "Monitor",
+        "price": "59.99",
+        "stock": 26
+    },
+    {
+        "item_name": "Laptop",
+        "price": "109.99",
+        "stock": 17
+    },
+    {
+        "item_name": "Computer",
+        "price": "229.99",
+        "stock": 48
+    }
+]

@@ -30,7 +30,12 @@ Order.init(
             },
 
         },
-    },
-);
+    }, {
+        sequelize,
+        modelName: 'order',
+        freezeTableName: true,
+        timestamps: false,
+        underscored: true,
+    });
 
 module.exports = Order;

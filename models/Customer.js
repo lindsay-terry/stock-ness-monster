@@ -22,7 +22,11 @@ Customer.init(
                 key: 'id',
             },
         }, 
-    },
-);
+    }, {
+        sequelize,
+        timestamps: false,
+        freezeTableName: true,
+        modelName: 'customer'
+    });
 
 module.exports = Customer;
