@@ -24,7 +24,12 @@ Product.init(
             allowNull: false,
             defaultValue: 0,
         },
-    },
-);
+    }, {
+        sequelize,
+        modelName: 'product',
+        freezeTableName: true,
+        timestamps: false,
+        underscored: true,
+    });
 
 module.exports = Product;
