@@ -1,1 +1,21 @@
-<p>login page</p>
+ <div class="container m-4">
+    {{!-- login form  --}}
+    <form class="login-form">
+        <div class="form-group">
+            {{!-- username field --}}
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" aria-describedby="username" placeholder="Enter username">
+        </div>
+        <div class="form-group">
+            {{!-- password field  --}}
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password">
+        </div>
+        <div>
+            {{!-- empty p tag to hold error response --}}
+            <p id="response-p"></p>
+        </div>
+        {{!-- submit button tied to form event listener --}}
+        <button type="submit" id='login-button'class="btn btn-primary mt-2">Login</button>
+    </form>
+</div>
