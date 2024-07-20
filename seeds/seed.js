@@ -1,7 +1,6 @@
 const sequelize = require('../config/connection');
 const { User, Customer, Order, Product } = require('../models');
 
-// declaring all the seed example files
 const userData = require('./userData.json');
 const customerData = require('./customerData.json');
 const orderData = require('./orderData.json');
