@@ -20,8 +20,14 @@ const handleLogin = async (event) => {
             document.location.replace('/');
         } else {
             //if response not ok display username or password message
-            const errorMessage = await response.json();
-            responseArea.textContent = errorMessage.message;
+            // const errorMessage = await response.json();
+            // responseArea.textContent = errorMessage.message;
+            Swal.fire({
+              title: 'Error!',
+              text: response.statusText,
+              icon: 'error',
+              confirmButtonText: 'Please Try Again'
+            });
         }
     }
 };
