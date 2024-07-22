@@ -1,20 +1,29 @@
+<div class="d-flex justify-content-center">
+    <h1 class="m-4">Customers</h1>
+</div>
+
 <div class="container" id="container-div">
-    {{#each customerData}}
-    <section class="card">
-            <h3 class="company-name" data-id="{{id}}">{{name}}</h3>
-    </section>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            {{#each customerData}}
+            <section class="card">
+                    <h3 class="company-name" data-id="{{id}}">{{name}}</h3>
+            </section>
 
-    {{/each}}
-
-
-    <div id="customerDetails" style="display: none;">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title" id="company-name"></h4>
-                <div class="card-subtitle mb-2" id="account-manager"></div>
+            {{/each}}
+            
+            <div id="customerDetails" style="display: none;">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title" id="company-name"></h4>
+                        <div class="card-subtitle mb-2" id="account-manager"></div>
+                    </div>
+                </div>
             </div>
         </div>
-
+        <figure class="col-md-6 col-sm-12">
+            <img class="img-fluid" src="/images/camel.png" alt="Pixelated walking camel with big skeleton alien in background.">
+        </figure>
 
     </div>
 </div>

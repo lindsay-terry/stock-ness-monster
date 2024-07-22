@@ -1,0 +1,26 @@
+:root {
+    --tea-green: #D0EEBEff;
+    --pistachio: #86C06Cff;
+    --dark-green: #173531ff;
+    --rich-black: #071821ff;
+    --hunter-green: #306850ff;
+}
+
+body {
+    background-color: var(--hunter-green);
+    color: var(--tea-green);
+    font-family: Quicksand, sans-serif;
+    font-size: 120%;
+    
+}
+
+h1 {
+    font-family: Creepster, sans-serif;
+    font-size: 70px;
+    color: var(--tea-green);
+    text-shadow: 5px 5px var(--dark-green);
+}
+
+.custom-navbar {
+    background-color: var(--hunter-green);
+}
