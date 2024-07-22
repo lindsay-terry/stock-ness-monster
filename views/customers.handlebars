@@ -1,1 +1,23 @@
-<p>Customers Page</p>
+<div class="container" id="container-div">
+    {{#each customerData}}
+    <section class="card">
+            <h3 class="company-name" data-id="{{id}}">{{name}}</h3>
+    </section>
+
+    {{/each}}
+
+
+    <div id="customerDetails" style="display: none;">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title" id="company-name"></h4>
+                <div class="card-subtitle mb-2" id="account-manager"></div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+<script src="./js/customers.js"></script>

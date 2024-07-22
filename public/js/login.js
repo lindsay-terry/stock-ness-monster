@@ -32,13 +32,6 @@ const handleLogin = async (event) => {
     }
 };
 
-//event listener for login button to send to login page
-document
-    .querySelector('#login-btn')
-    .addEventListener('click', function() {
-        document.location.href = '/login';
-    });
-
 //event listener to handleLogin upon form submission
 document
     .querySelector('.login-form')
