@@ -19,4 +19,8 @@ User.hasMany(Customer, {
     foreignKey: 'account_manager_id'
 });
 
+Customer.belongsTo(User, {
+    foreignKey: 'account_manager_id'
+});
+
 module.exports = { User, Order, Product, Customer };
