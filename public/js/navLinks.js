@@ -11,3 +11,10 @@ document
     .addEventListener('click', function() {
         document.location.href = '/customers';
     });
+
+//event listener for the products button to send to products page
+document
+    .querySelector('#products-btn')
+    .addEventListener('click', function() {
+        document.location.href = '/products';
+    });

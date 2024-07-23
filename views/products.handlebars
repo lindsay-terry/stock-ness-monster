@@ -1,1 +1,24 @@
-<p>Products Page</p>
+<div class="d-grid gap-2 col-6 mx-auto">
+  <button class="btn btn-primary" type="button" id="all-products">All Products</button>
+  <div class="input-group mb-3">
+    <input type="number" class="form-control" placeholder="Enter Product ID" id="product-id-input" aria-label="Product ID">
+    <button class="btn btn-primary" type="button" id="product-by-id">Product By Id</button>
+  </div>
+</div>
+
+<div class="container mt-5">
+  {{#each products}}
+    <div class="card">
+        <div class="card-header">
+            <h3>{{item_name}}</h3>
+        </div>
+        <div class="card-body">
+            <p class="card-text"><strong>ID:</strong> {{id}}</p>
+            <p class="card-text"><strong>Price:</strong> ${{price}}</p>
+            <p class="card-text"><strong>Stock:</strong> {{stock}}</p>        
+        </div>
+    </div>
+  {{/each}}
+</div>
+
+<script src="/js/products.js"></script>
