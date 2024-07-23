@@ -36,3 +36,8 @@ h1 {
   background-color: var(--pistachio);
   color: var(--dark-green);
 }
+
+/* styling for modals  */
+.modal-style {
+  background-color: var(--rich-black);
+}

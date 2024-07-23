@@ -53,20 +53,41 @@ router.get('/customers', async (req, res) => {
             include: [
                 {
                     model: User,
-                    // model: Order,
-                    // model: Product,
+
+                },
+                {
+                    model: Order,
                 },
             ],
         })
-        const customerData = data.map(customer => {
-            return { id: customer.id, name: customer.company_name, };
-        });
+        const customerData = data.map(customer => customer.get({ plain: true }));
 
         res.render('customers', {
-            customerData,
+            customerData: customerData,
         });
+        console.log(customerData);
     } catch (err) {
         res.status(500).json(err);
+    };
+});
+
+//Route to users page
+router.get('/users', async (req, res) => {
+    try {
+        const data = await User.findAll({
+            include: [
+                {
+                    model: Customer,
+                },
+            ],
+        })
+        const userData = data.map(user => user.get({ plain: true }));
+        res.render('users', {
+            userData: userData,
+        });
+        console.log(userData);
+    } catch (error) {
+        res.status(500).json(error);
     };
 });
 

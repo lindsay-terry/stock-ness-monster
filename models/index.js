@@ -11,9 +11,9 @@ Customer.hasMany(Order, {
     foreignKey: 'customer_id',
 });
 
-// Customer.belongsTo(User, {
-//     foreignKey: 'account_manager_id',
-// });
+Order.belongsTo(Customer, {
+    foreignKey: 'customer_id'
+});
 
 User.hasMany(Customer, {
     foreignKey: 'account_manager_id'
