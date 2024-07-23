@@ -33,8 +33,6 @@
   </form>
 </div>
 
-
-
 {{#each products}}
   <div class="container mt-5">
       <div class="card">
@@ -44,7 +42,8 @@
           <div class="card-body">
               <p class="card-text"><strong>ID:</strong> {{id}}</p>
               <p class="card-text"><strong>Price:</strong> ${{price}}</p>
-              <p class="card-text"><strong>Stock:</strong> {{stock}}</p>        
+              <p class="card-text"><strong>Stock:</strong> {{stock}}</p>
+              <button type="button" class="btn btn-danger delete-product" data-id="{{id}}">Delete</button>        
           </div>
       </div>
   </div>
@@ -59,7 +58,8 @@
           <div class="card-body">
               <p class="card-text"><strong>ID:</strong> {{product.id}}</p>
               <p class="card-text"><strong>Price:</strong> ${{product.price}}</p>
-              <p class="card-text"><strong>Stock:</strong> {{product.stock}}</p>        
+              <p class="card-text"><strong>Stock:</strong> {{product.stock}}</p>
+              <button type="button" class="btn btn-danger delete-product" data-id="{{product.id}}">Delete</button>        
           </div>
       </div>
   </div>

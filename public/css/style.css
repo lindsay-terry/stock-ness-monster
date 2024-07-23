@@ -24,3 +24,15 @@ h1 {
 .custom-navbar {
     background-color: var(--hunter-green);
 }
+
+/* Custom class for SweetAlert background */
+.custom-confirm-popup {
+  background-color: var(--hunter-green);
+  color: var(--tea-green);
+}
+
+/* Custom class for SweetAlert confirm button */
+.custom-confirm-button {
+  background-color: var(--pistachio);
+  color: var(--dark-green);
+}
