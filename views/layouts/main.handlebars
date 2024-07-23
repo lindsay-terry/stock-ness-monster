@@ -20,20 +20,22 @@
       <nav class="navbar custom-navbar">
          <form class="container-fluid justify-content-start">
             {{!-- nav buttons -- can be added to or modified --}}
+
             <button class="btn btn-warning me-2" type="button">Home</button>
             <button class="btn btn-outline-warning me-2" id="login-btn" type="button">Login</button>
             <button class="btn btn-outline-warning me-2" id="logout-btn" type="button">Logout</button>
             <button class="btn btn-outline-warning me-2" type="button">Orders</button>
             <button class="btn btn-outline-warning me-2" type="button">Products</button>
             <button class="btn btn-outline-warning me-2" id="customer-btn" type="button">Customers</button>
+
          </form>
       </nav>
    </header>
     {{{body}}}
    {{!-- scripts for sweetalert2, navigation links, and logout procedure --}}
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-   <script src="./js/navLinks.js"></script>
-   <script src="./js/logout.js"></script>
+   <script src="/js/navLinks.js"></script>
+   <script src="/js/logout.js"></script>
 
  </body>   
 </html>
