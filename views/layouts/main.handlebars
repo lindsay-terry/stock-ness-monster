@@ -22,8 +22,11 @@
             {{!-- nav buttons -- can be added to or modified --}}
 
             <button class="btn btn-warning me-2" id="home-btn" type="button">Home</button>
-            <button class="btn btn-outline-warning me-2" id="login-btn" type="button">Login</button>
+            {{#if logged_in}}
             <button class="btn btn-outline-warning me-2" id="logout-btn" type="button">Logout</button>
+            {{else}}
+            <button class="btn btn-outline-warning me-2" id="login-btn" type="button">Login</button>
+            {{/if}}
             <button class="btn btn-outline-warning me-2" id="order-btn" type="button">Orders</button>
             <button class="btn btn-outline-warning me-2" id="products-btn" type="button">Products</button>
             <button class="btn btn-outline-warning me-2" id="customer-btn" type="button">Customers</button>
@@ -37,7 +40,9 @@
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
    <script src="/js/navLinks.js"></script>
+   {{#if logged_in}}
    <script src="/js/logout.js"></script>
+   {{/if}}
 
  </body>   
 </html>
