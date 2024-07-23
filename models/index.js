@@ -4,13 +4,9 @@ const Product = require('./Product');
 const User = require('./User');
 const Category = require('./category');
 
-// Define associations
-
-// Product and Order (if applicable)
-// If an Order can include multiple Products, and a Product can belong to multiple Orders, you'd typically have a join table.
-// For example:
-// Order.belongsToMany(Product, { through: 'OrderProduct', foreignKey: 'order_id' });
-// Product.belongsToMany(Order, { through: 'OrderProduct', foreignKey: 'product_id' });
+Order.hasMany(Product, {
+    foreignKey: 'product_id',
+});
 
 Customer.hasMany(Order, {
     foreignKey: 'customer_id',

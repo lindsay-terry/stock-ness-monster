@@ -5,12 +5,43 @@
 <div class="container" id="container-div">
     <div class="row">
         <div class="col-md-6 col-sm-12">
-            {{#each customerData}}
-            <section class="card">
-                    <h3 class="company-name" data-id="{{id}}">{{name}}</h3>
-            </section>
+            <div class="container d-flex flex-column d-grid gap-3 col-4 mx-auto">
+                {{#each customerData}}
+                    <button type="button" class="btn btn-warning btn-lg" data-bs-toggle="modal" data-bs-target="#myModal{{id}}">
+                        {{company_name}}
+                    </button>
+                {{!-- modal --}}
+                <div class="modal fade" id="myModal{{id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="myModal{{id}}Label" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content modal-style">
+                        <div class="modal-header">
+                            <h2 class="modal-title fs-5" id="myModal{{id}}Label">{{company_name}}</h2>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Account Manager: <a href="/users">{{user.first_name}} {{user.last_name}}</a></p> 
+                            <p>Orders: {{orders}}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="container d-flex justify-content-evenly">
+                                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Edit Customer</button>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete Customer</button>
+                                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+                            </div>
 
-            {{/each}}
+                            {{!-- <button type="button" class="btn btn-primary">Understood</button> --}}
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            {{!-- end modal  --}}
+            </div>
+
+            {{!-- <section class="card">
+                    <h3 class="company-name" data-id="{{id}}">{{name}}</h3>
+            </section> --}}
+           
             
             <div id="customerDetails" style="display: none;">
                 <div class="card">
@@ -29,4 +60,4 @@
 </div>
 
 
-<script src="./js/customers.js"></script>
+{{!-- <script src="./js/customers.js"></script> --}}

@@ -22,16 +22,53 @@ router.get('/', async (req, res) => {
 // GET product by id and associated tables
 router.get('/:id', async (req, res) => {
   try {
-    const products = await Product.findByPk(req.params.id, {
+    const product = await Product.findByPk(req.params.id, {
     });
 
-    if (!products) {
+    if (!product) {
       res.status(404).json({ message: 'Product not found' });
       return;
     };
 
-    res.render('products', { products });
+    const plainProduct = product.toJSON()
+
+    res.render('products', { product: plainProduct });
     // res.status(200).json(product);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.post('/', async (req, res) => {
+  try {
+    console.log(req.body);
+    const newProduct = await Product.create({
+      item_name: req.body.name,
+      price: req.body.price,
+      stock: req.body.stock
+    });
+
+    res.status(200).json(newProduct);
+  } catch (err) {
+    console.error(err);
+    res.status(400).json(err);
+  }
+});
+
+router.delete('/:id', async (req, res) => {
+  try {
+    const deleteProduct = await Product.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    if (!deleteProduct) {
+      res.status(404).json({ message: 'No product found with this id!' });
+      return;
+    }
+
+    res.status(200).json(deleteProduct);
   } catch (err) {
     res.status(500).json(err);
   }
