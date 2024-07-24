@@ -3,14 +3,45 @@
 </div>
 
 <div class="container">
+    {{!-- add user button section --}}
+    <section class="d-grid gap-3 col-7 mx-auto mb-4">
+        <button type="button" class="btn btn-warning btn-lg" id="add-usr">Add A User</button>
+            <form class="" id="user-form" style="display: none">
+                <div class="form-floating mb-1">
+                    <input type="text" class="form-control" id="first-name" placeholder="First Name">
+                    <label for="first-name">First Name</label>
+                </div>
+                <div class="form-floating mb-1">
+                    <input type="text" class="form-control" id="last-name" placeholder="Last Name">
+                    <label for="last-name">Last Name</label>
+                </div>
+                <div class="form-floating mb-1">
+                    <input type="text" class="form-control" id="username" placeholder="your-username">
+                    <label for="username">Username</label>
+                </div>
+                <div class="form-floating mb-1">
+                    <input type="password" class="form-control" id="password" placeholder="Password">
+                    <label for="password">Password</label>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-warning btn-lg" id="create-usr">Create User</button>
+                </div>
+            </form>
+    </section>
+    {{!-- form for adding new user --}}
+
+
+
+
+
     <div class="row">
         <div class="col-md-6 col-sm-12">
-            <div class="container d-flex flex-column d-grid gap-3 col-4 mx-auto">
+            <div class="container d-flex flex-column d-grid gap-2 col-10 mx-auto">
                 {{#each userData}}
                 <button type="button" class="btn btn-warning btn-lg" data-bs-toggle="modal" data-bs-target="#myModal{{id}}">
-                    {{first_name}} {{last_name}}
+                    {{this.first_name}} {{this.last_name}}
                 </button>
-
+                {{!-- modal to view user data  --}}
                 <div class="modal fade" id="myModal{{id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="myModal{{id}}Label" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content modal-style">
@@ -19,11 +50,13 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p>Accounts: {{#each customers as |customer|}} 
+                            <p>Accounts: 
                                 <ul>
-                                    <li>{{customer}}</li>
+                                    {{#each customers}} 
+                                    <li>{{this.company_name}}</li>
+                                    {{/each}}
                                 </ul>
-                                {{/each}}
+                                
                             </p>
                         </div>
                         <div class="modal-footer">
@@ -34,8 +67,14 @@
                         </div>
                     </div>
                 </div>
+                {{!-- end modal  --}}
                 {{/each}}
             </div>
         </div>
+        <figure class="col-md-6 col-sm-12">
+            <img class="img-fluid" src="/images/building.png" alt="Pixelated green monster threatening skyscrapers">
+        </figure>
     </div>
 </div>
+
+<script src="/js/users.js"></script>

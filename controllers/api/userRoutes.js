@@ -42,4 +42,20 @@ router.post('/logout', (req, res) => {
     }
 });
 
+//new user route
+router.post('/', async (req, res) => {
+    try {
+        const newUser = await User.create({
+            first_name: req.body.firstName,
+            last_name: req.body.lastName,
+            username: req.body.username,
+            password: req.body.password,
+        });
+
+        res.status(200).json(newUser);
+    } catch (error) {
+        response.status(400).json(error);
+    }
+});
+
 module.exports = router;
