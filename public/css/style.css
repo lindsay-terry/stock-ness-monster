@@ -4,6 +4,7 @@
     --dark-green: #173531ff;
     --rich-black: #071821ff;
     --hunter-green: #306850ff;
+    --error: rgb(243, 69, 69);
 }
 
 body {

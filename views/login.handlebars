@@ -4,10 +4,21 @@
  
  
  
- <div class="container m-4">
+ <div class="container">
     <div class="row">
     {{!-- login form  --}}
     <form class="login-form col-md-6 col-sm-12">
+
+        {{!-- display please log in message if user is not logged in --}}
+        {{#if logged_in}}
+            <div>
+            </div>
+        {{else}}
+            <div class="alert custom-error-popup m-4 ">
+                <h5>Please log in to view more<h5>
+            </div>
+        {{/if}}
+
         <div class="form-group">
             {{!-- username field --}}
             <label for="username">Username</label>
@@ -23,7 +34,7 @@
             <p id="response-p"></p>
         </div>
         {{!-- submit button tied to form event listener --}}
-        <button type="submit" id='login-button'class="btn btn-outline-warning mt-2">Login</button>
+        <button type="submit" id='login-button'class="btn btn-warning mt-2">Login</button>
     </form>
 
     <figure class="col-md-6 col-sm-12">

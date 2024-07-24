@@ -23,10 +23,14 @@ const handleLogin = async (event) => {
             // const errorMessage = await response.json();
             // responseArea.textContent = errorMessage.message;
             Swal.fire({
-              title: 'Error!',
-              text: response.statusText,
+              title: 'Invalid Login',
+              text: 'Incorrect username or password. Please try again',
               icon: 'error',
-              confirmButtonText: 'Please Try Again'
+              confirmButtonText: 'Okay',
+              customClass: {
+                popup: 'custom-error-popup',
+                confirmButton: 'bg-warning'
+              }
             });
         }
     }
