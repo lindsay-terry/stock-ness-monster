@@ -1,13 +1,13 @@
-const getAllProducts = async () => {
+const getAllCategories = async (event) => {
   try {
-    const response = await fetch(`/api/products`, {
+    const response = await fetch(`/api/categories`, {
       method: 'GET'
     });
     
     if (response.ok) {
-      document.location.replace('/api/products');
+      document.location.replace('/api/categories');
     } else {
-      throw new Error('Failed to GET products');
+      throw new Error('Failed to GET categories');
     }
   } catch (error) {
     Swal.fire({
@@ -19,27 +19,27 @@ const getAllProducts = async () => {
   }
 };
 
-const productById = async () => {
-  const id = document.querySelector('#product-id-input').value;
+const categoryById = async () => {
+  const id = document.querySelector('#category-id-input').value;
   console.log(id)
   if (!id) {
     Swal.fire({
       title: 'Error!',
-      text: 'Please enter a product ID',
+      text: 'Please enter a category ID',
       icon: 'error',
       confirmButtonText: 'Okay'
     });
     return;
   }
   try {
-    const response = await fetch(`/api/products/${id}`, {
+    const response = await fetch(`/api/categories/${id}`, {
       method: 'GET'
     });
     
     if (response.ok) {
-      document.location.replace(`/api/products/${id}`);
+      document.location.replace(`/api/categories/${id}`);
     } else {
-      throw new Error('Failed to GET product by id');
+      throw new Error('Failed to GET category by id');
     }
   } catch (error) {
     Swal.fire({
@@ -51,24 +51,21 @@ const productById = async () => {
   }
 };
 
-const displayProductForm = () => {
-  const toggleDisplay = document.querySelector('#product-form');
+const displayCategoryForm = () => {
+  const toggleDisplay = document.querySelector('#category-form');
   toggleDisplay.classList.toggle('d-none');
 };
 
-const addProduct = async (event) => {
+const addCategory = async (event) => {
   event.preventDefault();
 
-  const name = document.querySelector('#product-name').value.trim();
-  const price = document.querySelector('#product-price').value.trim();
-  const stock = document.querySelector('#product-stock').value.trim();
-  const category = document.querySelector('#product-category').value;
+  const name = document.querySelector('#category-name').value.trim();
 
-  if (name && price && stock) {
+  if (name) {
     try {
-      const response = await fetch(`/api/products`, { 
+      const response = await fetch(`/api/categories`, { 
         method: 'POST',
-        body: JSON.stringify({ name, price, stock, category }),
+        body: JSON.stringify({ name }),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -77,7 +74,7 @@ const addProduct = async (event) => {
       if (response.ok) {
         await Swal.fire({
           title: 'Success!',
-          text: `Added ${name} to products.`,
+          text: `Added ${name} to categories.`,
           icon: 'success',
           confirmButtonText: 'Okay',
           customClass: {
@@ -85,10 +82,10 @@ const addProduct = async (event) => {
             confirmButton: 'custom-confirm-button'
           }
         }).then(() => {
-          document.location.replace('/products');
+          document.location.replace('/categories');
         });
       } else {
-        throw new Error('Failed to create product');
+        throw new Error('Failed to create category');
       }
     } catch (error) {
       Swal.fire({
@@ -101,9 +98,9 @@ const addProduct = async (event) => {
   }
 };
 
-const deleteProduct = async (event) => {
+const deleteCategory = async (event) => {
   console.log('in delete function')
-  if (event.target.classList.contains('delete-product')) {
+  if (event.target.classList.contains('delete-category')) {
     const id = event.target.getAttribute('data-id');
 
     // Show SweetAlert2 confirmation dialog
@@ -121,24 +118,24 @@ const deleteProduct = async (event) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await fetch(`/api/products/${id}`, {
+          const response = await fetch(`/api/categories/${id}`, {
             method: 'DELETE',
           });
 
           if (response.ok) {
             Swal.fire({
               title: 'Deleted!',
-              text: `Product ID: ${id} has been destroyed.`,
+              text: `Category ID: ${id} has been destroyed.`,
               icon: 'success',
               customClass: {
                 popup: 'custom-confirm-popup',
                 confirmButton: 'custom-confirm-button'
               }
             }).then(() => {
-              document.location.replace('/products');
+              document.location.replace('/categories');
             });
           } else {
-            throw new Error('Failed to delete product');
+            throw new Error('Failed to delete category');
           }
         } catch (error) {
           Swal.fire({
@@ -154,19 +151,19 @@ const deleteProduct = async (event) => {
 };
 
 document
-    .querySelector('#all-products')
-    .addEventListener('click', getAllProducts);
+    .querySelector('#all-categories')
+    .addEventListener('click', getAllCategories);
 
 document
-    .querySelector('#product-by-id')
-    .addEventListener('click', productById);
+    .querySelector('#category-by-id')
+    .addEventListener('click', categoryById);
 
 document
-    .querySelector('#add-product')
-    .addEventListener('click', displayProductForm);
+    .querySelector('#add-category')
+    .addEventListener('click', displayCategoryForm);
 
 document
-    .querySelector('#product-submit')
-    .addEventListener('click', addProduct);
+    .querySelector('#category-submit')
+    .addEventListener('click', addCategory);
 
-document.addEventListener('click', deleteProduct);
+document.addEventListener('click', deleteCategory);
