@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Product } = require('../../models');
+const { Product, Category } = require('../../models');
 
 // The `/api/products` endpoint
 
@@ -45,7 +45,8 @@ router.post('/', async (req, res) => {
     const newProduct = await Product.create({
       item_name: req.body.name,
       price: req.body.price,
-      stock: req.body.stock
+      stock: req.body.stock,
+      category_id: req.body.category
     });
 
     res.status(200).json(newProduct);

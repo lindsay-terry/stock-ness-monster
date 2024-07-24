@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Customer, User, Order, Product, Report } = require('../models');
+const { Customer, User, Order, Product, Category, Report } = require('../models');
 const withAuth = require('../utils/auth');
 const { getLatestReport, getAllReports } = require('../generateReport');
 
@@ -62,12 +62,27 @@ router.get('/report', async (req, res) => {
 // Route to products page
 router.get('/products', withAuth, async (req, res) => {
     try {
-        res.render('products', {
+        const categories = await Category.findAll();
+        const plainCategories = categories.map(category => category.toJSON());
+  
+        res.render('products', { categories: plainCategories,
             logged_in: req.session.logged_in,
         })
+     
     } catch (err) {
         res.status(500).json(err);
     };
+});
+
+// Route to categories page
+router.get('/categories', withAuth, async (req, res) => {
+  try {
+      res.render('categories', {
+          logged_in: req.session.logged_in,
+      })
+  } catch (err) {
+      res.status(500).json(err);
+  };
 });
 
 // Route to order page
