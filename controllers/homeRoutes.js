@@ -117,7 +117,14 @@ router.get('/users', withAuth, async (req, res) => {
                 },
             ],
         })
-        const userData = data.map(user => user.get({ plain: true }));
+        const userData = data.map(user => {
+            const serializedUser = user.get({ plain: true });
+            if (serializedUser.Customer) {
+                serializedUser.Customer = serializedUser.Customer.map(customer => customer.get({ plain: true }));
+            }
+            return serializedUser;
+        })
+
         res.render('users', {
             userData: userData, logged_in: req.session.logged_in,
         });
