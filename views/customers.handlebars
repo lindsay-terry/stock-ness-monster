@@ -1,63 +1,54 @@
 <div class="d-flex justify-content-center">
     <h1 class="m-4">Customers</h1>
 </div>
-
-<div class="container" id="container-div">
-    <div class="row">
-        <div class="col-md-6 col-sm-12">
-            <div class="container d-flex flex-column d-grid gap-3 col-4 mx-auto">
-                {{#each customerData}}
-                    <button type="button" class="btn btn-warning btn-lg" data-bs-toggle="modal" data-bs-target="#myModal{{id}}">
-                        {{company_name}}
-                    </button>
-                {{!-- modal --}}
-                <div class="modal fade" id="myModal{{id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="myModal{{id}}Label" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content modal-style">
-                        <div class="modal-header">
-                            <h2 class="modal-title fs-5" id="myModal{{id}}Label">{{company_name}}</h2>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Account Manager: <a href="/users">{{user.first_name}} {{user.last_name}}</a></p> 
-                            <p>Orders: {{orders}}</p>
-                        </div>
-                        <div class="modal-footer">
-                            <div class="container d-flex justify-content-evenly">
-                                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Edit Customer</button>
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete Customer</button>
-                                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
-                            </div>
-
-                            {{!-- <button type="button" class="btn btn-primary">Understood</button> --}}
-                        </div>
-                        </div>
-                    </div>
-                </div>
-                {{/each}}
-            {{!-- end modal  --}}
-            </div>
-
-            {{!-- <section class="card">
-                    <h3 class="company-name" data-id="{{id}}">{{name}}</h3>
-            </section> --}}
-           
-            
-            <div id="customerDetails" style="display: none;">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title" id="company-name"></h4>
-                        <div class="card-subtitle mb-2" id="account-manager"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <figure class="col-md-6 col-sm-12">
-            <img class="img-fluid" src="/images/camel.png" alt="Pixelated walking camel with big skeleton alien in background.">
-        </figure>
-
+<div class="row">
+    <div class="col-12 d-flex justify-content-evenly">
+        <button class="btn btn-warning m-2 fs-4">Add a Customer</button>
+        <button class="btn btn-warning m-2 fs-4">Edit a Customer</button>
+        {{!-- <button class="btn btn-warning m-2 fs-4">Delete a Customer</button> --}}
     </div>
+</div>
+<div class="row">
+    <div class="d-flex flex-column gap-4 col-md-6 col-sm-12">
+        <div class="accordion customer-area" id="accordionExample">
+        {{#each customerData}}
+        <div class="accordion-item bg-dark text-warning">
+            <h2 class="accordion-header" id="heading{{id}}">
+            <button class="accordion-button bg-warning get-info" type="button" data-id="{{id}}" data-bs-toggle="collapse" data-bs-target="#collapse{{id}}" aria-expanded="true" aria-controls="collapse{{id}}">
+                {{company_name}}
+            </button>
+            </h2>
+            <div id="collapse{{id}}" class="accordion-collapse collapse" aria-labelledby="heading{{id}}" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <p>
+                    <strong>Account Manager:</strong> <a href="/users" class="text-warning bold">{{user.first_name}} {{user.last_name}}</a>
+                </p>
+                <p>
+                    <strong>Customer ID:</strong> {{id}}
+                </p>
+                <p>
+                    <strong>Order IDs:</strong>
+                    <ul>
+                        {{#each orders as |order|}}
+                        <li> 
+                            <a href="#" class="text-decoration-none text-success">{{id}}</a>
+                            {{/each}}
+                        </li>
+                    </ul>
+                </p>
+            </div>
+            </div>
+        </div>   
+        {{/each}}
+        </div>
+    </div>
+    <figure class="d-grid gap-2 col-md-6 col-sm-12 mx-auto">
+        <img src="/images/camel.png">
+    </figure>
+
+
+
 </div>
 
 
-{{!-- <script src="./js/customers.js"></script> --}}
+<script src="./js/customers.js"></script>
