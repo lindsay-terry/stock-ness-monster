@@ -6,41 +6,28 @@
     {{!-- add user button section --}}
     <section class="d-grid gap-3 col-7 mx-auto mb-4">
         <button type="button" class="btn btn-warning btn-lg" id="add-usr">Add A User</button>
+        {{!-- start form for adding new user  --}}
             <form class="" id="user-form" style="display: none">
-                <div class="form-floating mb-1">
-                    <input type="text" class="form-control" id="first-name" placeholder="First Name">
-                    <label for="first-name">First Name</label>
-                </div>
-                <div class="form-floating mb-1">
-                    <input type="text" class="form-control" id="last-name" placeholder="Last Name">
-                    <label for="last-name">Last Name</label>
-                </div>
                 <div class="form-floating mb-1">
                     <input type="text" class="form-control" id="username" placeholder="your-username">
                     <label for="username">Username</label>
                 </div>
-                <div class="form-floating mb-1">
-                    <input type="password" class="form-control" id="password" placeholder="Password">
-                    <label for="password">Password</label>
-                </div>
+                {{!-- partial to reuse components of user form  --}}
+                {{> user-form}}
                 <div class="d-flex justify-content-center">
                     <button type="submit" class="btn btn-warning btn-lg" id="create-usr">Create User</button>
                 </div>
             </form>
     </section>
-    {{!-- form for adding new user --}}
-
-
-
-
-
+    {{!-- end form for adding new user --}}
     <div class="row">
         <div class="col-md-6 col-sm-12">
-            <div class="container d-flex flex-column d-grid gap-2 col-10 mx-auto">
+            <div class="container d-flex flex-column d-grid gap-2 col-10 mx-auto modal-container">
                 {{#each userData}}
                 <button type="button" class="btn btn-warning btn-lg" data-bs-toggle="modal" data-bs-target="#myModal{{id}}">
                     {{this.first_name}} {{this.last_name}}
                 </button>
+
                 {{!-- modal to view user data  --}}
                 <div class="modal fade" id="myModal{{id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="myModal{{id}}Label" aria-hidden="true">
                     <div class="modal-dialog">
@@ -55,12 +42,16 @@
                                     {{#each customers}} 
                                     <li>{{this.company_name}}</li>
                                     {{/each}}
-                                </ul>
-                                
+                                </ul> 
+                            </p>
+                            <p>
+                                Username: {{this.username}}
                             </p>
                         </div>
                         <div class="modal-footer">
-                            <div class="container d-flex justify-content-evenly">
+                            <div class="container d-flex justify-content-evenly button-area">
+                                <button type="button" class="btn btn-danger del-btn" data-bs-dismiss="modal" data-id="{{id}}">Delete</button>
+                                <button type="button" class="btn btn-warning edit-btn" data-bs-dismiss="modal" data-id="{{id}}">Edit</button>
                                 <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>

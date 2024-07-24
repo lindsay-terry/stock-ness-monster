@@ -54,7 +54,26 @@ router.post('/', async (req, res) => {
 
         res.status(200).json(newUser);
     } catch (error) {
-        response.status(400).json(error);
+        res.status(400).json(error);
+    }
+});
+
+//delete user route
+router.delete('/:id', async (req, res) => {
+    try {
+        const userId = req.params.id;
+        
+        const deletedUser = await User.destroy({
+            where: { id: userId },
+        });
+
+        if (!deletedUser) {
+            res.status(404).json({ message: `No user found with id ${userId}` });
+            return;
+        }
+        res.status(200).json({ message: 'User deleted successfully' });
+    } catch (err) {
+        res.status(500).json(err);
     }
 });
 
