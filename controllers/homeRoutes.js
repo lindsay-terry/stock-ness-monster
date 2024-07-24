@@ -1,6 +1,7 @@
 const router = require('express').Router();
-const { Customer, User, Order, Product } = require('../models');
+const { Customer, User, Order, Product, Report } = require('../models');
 const withAuth = require('../utils/auth');
+const { getLatestReport, getAllReports } = require('../generateReport');
 
 // Route to home page
 router.get('/', withAuth, async (req, res) => {
@@ -23,6 +24,40 @@ router.get('/login', async (req, res) => {
         res.status(500).json(err);
     };
 });
+
+// Route to get the latest report
+router.get('/report', async (req, res) => {
+    try {
+      const report = await getLatestReport();
+      if (report) {
+        res.render('report', { report: report.data });
+      } else {
+        res.status(500).send('Error generating report');
+      }
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
+  
+  // Route to view all reports
+  router.get('/allreports', async (req, res) => {
+    try {
+      const reports = await getAllReports();
+      res.render('allreports', {
+        reports: reports.map(report => {
+          return {
+            timestamp: report.timestamp,
+            users: report.data.users,
+            customers: report.data.customers,
+            orders: report.data.orders,
+            products: report.data.products
+          };
+        })
+      });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
 
 // Route to products page
 router.get('/products', withAuth, async (req, res) => {

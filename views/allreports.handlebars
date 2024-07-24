@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Reports</title>
+  <link rel="stylesheet" href="/styles.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+  <h1>All Reports</h1>
+
+  {{#each reports}}
+  <h2>Report at {{formatDate this.timestamp}}</h2>
+  <h3>Users</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Username</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each this.users}}
+      <tr>
+        <td>{{id}}</td>
+        <td>{{first_name}} {{last_name}}</td>
+        <td>{{username}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <h3>Customers</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Company</th>
+        <th>Account Manager ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each this.customers}}
+      <tr>
+        <td>{{id}}</td>
+        <td>{{company_name}}</td>
+        <td>{{account_manager_id}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <h3>Orders</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Fulfilled</th>
+        <th>Content ID</th>
+        <th>Customer ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each this.orders}}
+      <tr>
+        <td>{{id}}</td>
+        <td>{{isFulfilled}}</td>
+        <td>{{content}}</td>
+        <td>{{customer_id}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <h3>Products</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Stock</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each this.products}}
+      <tr>
+        <td>{{id}}</td>
+        <td>{{item_name}}</td>
+        <td>{{price}}</td>
+        <td>{{stock}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  {{/each}}
+</body>
+</html>
