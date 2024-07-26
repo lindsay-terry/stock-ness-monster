@@ -22,7 +22,196 @@ const toggleEditForm = async (id) => {
     };
 };
 
+//function to handle adding a customer
+const handleAddCustomer = async () => {
+    //get access to form elements
+    const companyName = document.getElementById('company-name').value.trim();
+    const acctMngrId = document.getElementById('account-manager-dropdown').value;
 
+    //ensure all fields are filled out
+    if(!companyName || acctMngrId === 'Select an account manager' ) {
+        Swal.fire({
+            title: 'Error!',
+            text: 'Please fill out company name and select an account manager',
+            icon: 'error',
+            confirmButtonText: 'Okay',
+            customClass: {
+                popup: 'custom-error-popup',
+                confirmButton: 'bg-warning'
+            }
+        });
+        return;
+    } else {
+        try {
+            const response = await fetch('/api/customers', {
+                method: 'POST',
+                body: JSON.stringify({ company_name: companyName, account_manager_id: acctMngrId }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+                await Swal.fire({
+                    title: 'Success!',
+                    text: `Added ${companyName}`,
+                    icon: 'success',
+                    confirmButtonText: 'Okay',
+                    customClass: {
+                      popup: 'custom-confirm-popup',
+                      confirmButton: 'custom-confirm-button'
+                    } 
+                }); 
+                await document.location.replace('/customers');
+
+            } else {
+                throw new Error('Failed to create customer');
+            }
+        } catch (error) {
+            Swal.fire({
+                title: 'Error!',
+                text: error.message,
+                icon: 'error',
+                confirmButtonText: 'Okay',
+                customClass: {
+                    popup: 'custom-error-popup',
+                    confirmButton: 'bg-warning'
+                }
+            });
+        }
+    }
+}; 
+
+//function to handle editing customer data
+const handleEditCustomer = async (event) => {
+    event.preventDefault();
+    //get access to data attribute of submit button for req.param
+    const submit = document.querySelector('.submit-edit-btn');
+    const id = submit.getAttribute('data-id');
+    //access to form elements
+    const companyName = document.getElementById('edit-company-name').value.trim();
+    const acctMngrId = document.getElementById('edit-account-manager-dropdown').value;
+    
+    //verify elements are properly filled out
+    if(!companyName || acctMngrId === 'Select an account manager' ) {
+        Swal.fire({
+            title: 'Error!',
+            text: 'Please fill out company name and select an account manager',
+            icon: 'error',
+            confirmButtonText: 'Okay',
+            customClass: {
+                popup: 'custom-error-popup',
+                confirmButton: 'bg-warning'
+            }
+        });
+        return;
+    } else {
+        try {
+            //put request to update customer by id
+            const response = await fetch(`/api/customers/${id}`, {
+                method: 'PUT',
+                body: JSON.stringify({ company_name: companyName, account_manager_id: acctMngrId }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            //success sweetalert
+            if (response.ok) {
+                await Swal.fire({
+                    title: 'Success!',
+                    text: `Successfully updated ${companyName}`,
+                    icon: 'success',
+                    confirmButtonText: 'Okay',
+                    customClass: {
+                      popup: 'custom-confirm-popup',
+                      confirmButton: 'custom-confirm-button'
+                    } 
+                }); 
+                //refresh the page
+                await document.location.replace('/customers');
+
+            } else {
+                throw new Error('Failed to create customer');
+            }
+            //error sweetalert
+        } catch (error) {
+            Swal.fire({
+                title: 'Error!',
+                text: error.message,
+                icon: 'error',
+                confirmButtonText: 'Okay',
+                customClass: {
+                    popup: 'custom-error-popup',
+                    confirmButton: 'bg-warning'
+                }
+            });
+        }
+    }
+};
+
+//function to delete customer
+const handleDelete = async (id) => {
+    console.log(id);
+    if (id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'This cannot be undone.  Proceed?',
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete.',
+            customClass: {
+                popup: 'custom-confirm-popup',
+                confirmButton: 'custom-confirm-button'
+            }
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const response = await fetch(`/api/customers/${id}`, {
+                        method: 'DELETE',
+                    });
+
+                    //if response is ok, show confirmation alert
+                    if (response.ok) {
+                        await Swal.fire({
+                            title: 'Success',
+                            text: 'Customer has been successfully deleted',
+                            icon: 'success',
+                            confirmButtonText: 'Okay',
+                            customClass: {
+                                popup: 'custom-confirm-popup',
+                                confirmButton: 'custom-confirm-button'
+                            }
+                        });  
+                        document.location.replace('/customers');                   
+                    } else {
+                        await Swal.fire({
+                            title: 'Error',
+                            text: "There's been an error deleting the customer, please try again.",
+                            icon: 'error',
+                            confirmButtonText: 'Okay',
+                            customClass: {
+                                popup: 'custom-error-popup',
+                                confirmButton: 'custom-confirm-button'
+                            }
+                        });
+                    }
+                } catch(error) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: error.message,
+                        icon: 'error',
+                        confirmButtonText: 'Okay',
+                        customClass: {
+                            popup: 'custom-error-popup',
+                            confirmButton: 'custom-confirm-button'
+                        }
+                    });
+                }
+            }
+        });     
+    }
+};
 
 
 
