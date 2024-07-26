@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Customer, User, Order, Product, Category, Report } = require('../models');
+const { Customer, User, Order, Product, Category, Report, OrderProduct } = require('../models');
 const withAuth = require('../utils/auth');
 const { getLatestReport, getAllReports } = require('../generateReport');
 
@@ -103,7 +103,11 @@ router.get('/orders', withAuth, async (req, res) => {
         const data = await Order.findAll({
             include: [
                 { model : Customer },
-                { model : Product },
+                { model : Product,
+                    through: {
+                        model: OrderProduct,
+                    },
+                 },
             ],
         })
         const orderData = data.map(order => order.get({ plain: true }));

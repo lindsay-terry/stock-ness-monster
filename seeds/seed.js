@@ -1,11 +1,12 @@
 const sequelize = require('../config/connection');
-const { User, Customer, Order, Product, Category } = require('../models');
+const { User, Customer, Order, Product, Category, OrderProduct } = require('../models');
 
 const userData = require('./userData.json');
 const customerData = require('./customerData.json');
 const orderData = require('./orderData.json');
 const productData = require('./productData.json');
 const categoryData = require('./categoryData.json');
+const orderProductData = require('./orderProductData.json');
 
 const seedDatabase = async () => {
     await sequelize.sync({ force: true });
@@ -43,16 +44,18 @@ const seedDatabase = async () => {
     console.log('--- Customers seeded ---');
 
     // Seeding Order Data
-    const orders = await Order.bulkCreate(orderData.map(order => ({
-        ...order,
-        customer_id: customers[Math.floor(Math.random() * customers.length)].id,
-        content: products[Math.floor(Math.random() * products.length)].id,
-    })), {
+    const orders = await Order.bulkCreate(orderData, {
         individualHooks: true,
         returning: true,
     });
     console.log('--- Orders seeded ---');
 
+    //seeding orderProduct Data
+    const orderProducts = await OrderProduct.bulkCreate(orderProductData, {
+        individualHooks: true,
+        returning: true,
+    })
+    console.log('--- OrderProducts seeded ---');
     process.exit(0);
 };
 

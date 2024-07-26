@@ -15,13 +15,6 @@ Order.init(
             type: DataTypes.BOOLEAN,
             allowNull: false,
         },
-        content: {
-            type: DataTypes.INTEGER,
-            references: {
-                model: 'product',
-                key: 'id',
-            },
-        },
         customer_id: {
             type: DataTypes.INTEGER,
             references: {
