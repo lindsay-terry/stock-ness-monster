@@ -1,8 +1,10 @@
 [
     {
-        "isFulfilled": false
+        "isFulfilled": false,
+        "customer_id": 1     
     },
     {
-        "isFulfilled": true
+        "isFulfilled": true,      
+        "customer_id": 2     
     }
 ]

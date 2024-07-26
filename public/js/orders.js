@@ -1,3 +1,39 @@
+//function to toggle new order form
+const toggleNewOrder = () => {
+  const form = document.querySelector('#new-order');
+
+  if (form.getAttribute('style') === 'display: none') {
+      form.setAttribute('style', 'display: block;');
+  } else {
+      form.setAttribute('style', 'display: none');
+  };
+    //scroll down to see form
+    form.scrollIntoView({ behavior: 'smooth' });
+};
+
+//function to toggle closed orders
+const toggleClosedOrders = () => {
+  const section = document.querySelector('#closed-order-div');
+
+  if (section.getAttribute('style') === 'display: none') {
+      section.setAttribute('style', 'display: block;');
+  } else {
+      section.setAttribute('style', 'display: none');
+  };
+    //scroll down to see div
+    section.scrollIntoView({ behavior: 'smooth' });
+};
+
+//event listener to toggle new order form with create order button
+document
+  .querySelector('.order-toggle')
+  .addEventListener('click', toggleNewOrder)
+
+//event listener to toggle closed orders
+document
+  .querySelector('.view-closed')
+  .addEventListener('click', toggleClosedOrders)
+
 document.addEventListener('DOMContentLoaded', () => {
 
 

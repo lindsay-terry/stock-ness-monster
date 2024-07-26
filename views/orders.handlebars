@@ -9,13 +9,65 @@
         </figure>
 
         <div class="col-md-6 col-sm-12">
-            <p class="m-4">
-                View your all orders here? View orders by id here? Place an order here?
-            </p>
+          <div class="d-flex flex-column">
+                <div>
+                  <button class="btn btn-warning view-closed">Toggle closed orders</button>
+                  <button class="btn btn-warning order-toggle">Create an order</button>
+                </div>
+                <h3 class="m-2">Open Orders:</h3>
+                <div class="open-orders-div m-4">
+                   {{#each orderData}}
+                      {{#unless this.isFulfilled}}
+                    <div class="card text-white bg-success mb-3" style="width: 16rem;">
+                      <div class="card-header bold">{{customer.company_name}}</div>
+                      <div class="card-body">
+                        <ul>
+                        {{#each products}}
+                        <li>
+                        <h5 class="card-title">{{this.item_name}} - {{orderProduct.quantity}}</h5> <p>{{this.price}} /ea</p>
+                        </li>
+                        {{/each}}
+                        </ul>
+                        
+                        <button class="btn btn-warning">Close Order</button>
+                        <button class="btn btn-warning">Edit Order</button>
+                      </div>
+                    </div>
+                    {{/unless}}
+                  {{/each}}   
+                </div>
 
+                <div id="closed-order-div" style="display: none">
+                  <h3 class="m-2">Closed Orders:</h3>
+                <div class="m-4">
+                   {{#each orderData}}
+                      {{#if this.isFulfilled}}
+                    <div class="card text-white bg-secondary mb-3" style="width: 16rem;">
+                      <div class="card-header bold">{{customer.company_name}}</div>
+                      <div class="card-body">
+                        <ul>
+                        {{#each products}}
+                        <li>
+                        <h5 class="card-title">{{this.item_name}} - {{orderProduct.quantity}}</h5> <p>{{this.price}} /ea</p>
+                        </li>
+                        {{/each}}
+                        </ul>
+                        
+                        {{!-- <button class="btn btn-warning">Order Again</button> --}}
+                        {{!-- <button class="btn btn-warning">Edit Order</button> --}}
+                      </div>
+                    </div>
+                    {{/if}}
+                  {{/each}}   
+                </div>
+                </div>
+
+
+
+            </div>
 
             {{!-- FORM TO SUBMIT AN ORDER --}}
-<div class="availability-container">
+<div class="availability-container" id="new-order" style="display: none">
   <div class="container">
     <h2 class="mt-5 orderTitle">Availability</h2>
     <!-- Check availability form -->
