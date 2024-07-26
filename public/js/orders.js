@@ -24,6 +24,78 @@ const toggleClosedOrders = () => {
     section.scrollIntoView({ behavior: 'smooth' });
 };
 
+//function to handle closing an order
+const closeOrder = async (id) => {
+  if (id) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This cannot be undone.',
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, close order.',
+      customClass: {
+        popup: 'custom-confirm-popup',
+        confirmButton: 'custom-confirm-button'
+      }
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await fetch(`/api/orders/${id}`, {
+            method: 'PUT',
+          });
+          //if response OK show confirmation
+          if (response.ok) {
+            await Swal.fire({
+              title: 'Success',
+              text: 'The order has been closed and inventory has been updated',
+              icon: 'success',
+              confirmButtonText: 'Okay',
+              customClass: {
+                popup: 'custom-confirm-popup',
+                confirmButton: 'custom-confirm-button'
+              }
+            });
+            document.location.replace('/orders');
+          } else {
+            await Swal.fire({
+              title: 'Error',
+              text: "There's been an error closing the order, please try again.",
+              icon: 'error',
+              confirmButtonText: 'Okay',
+              customClass: {
+                popup: 'custom-error-popup',
+                confirmButton: 'custom-confirm-button'
+              }
+            });
+          }
+        } catch (error) {
+          Swal.fire({
+            title: 'Error',
+            text: error.message,
+            icon: 'error',
+            confirmButtonText: 'Okay',
+            customClass: {
+              popup: 'custom-error-popup',
+              confirmButton: 'custom-confirm-button'
+            }
+          });
+        }
+      }
+    });
+  }
+}
+
+//event listener for close order button
+document
+  .querySelector('.open-orders-div')
+  .addEventListener('click', function(event) {
+    if (event.target.classList.contains('close-order')) {
+      const btnId = event.target.getAttribute('data-id');
+      closeOrder(btnId);
+    }
+  })
+
 //event listener to toggle new order form with create order button
 document
   .querySelector('.order-toggle')
@@ -204,7 +276,6 @@ makeOrderbtn.addEventListener('click', placeOrder);
   goBackAvailability.addEventListener('click', goBack);
 
 });
-
 
 
 
