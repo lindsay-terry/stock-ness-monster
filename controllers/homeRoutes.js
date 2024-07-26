@@ -65,10 +65,13 @@ router.get('/report', withAuth, async (req, res) => {
 // Route to products page
 router.get('/products', withAuth, async (req, res) => {
     try {
-        const categories = await Category.findAll();
-        const plainCategories = categories.map(category => category.toJSON());
+        const productData = await Product.findAll({ include: [{ model: Category }] });
+        const products = productData.map(product => product.toJSON());
+
+        const categoryData = await Category.findAll();
+        const categories = categoryData.map(category => category.toJSON());
   
-        res.render('products', { categories: plainCategories,
+        res.render('products', { products: products, categories: categories,
             logged_in: req.session.logged_in,
         })
      
@@ -80,7 +83,13 @@ router.get('/products', withAuth, async (req, res) => {
 // Route to categories page
 router.get('/categories', withAuth, async (req, res) => {
   try {
-      res.render('categories', {
+      const categoryData = await Category.findAll({ include: [{ model: Product }] });
+      const categories = categoryData.map(category => category.toJSON());
+
+      const productData = await Product.findAll();
+      const products = productData.map(product => product.toJSON());
+
+      res.render('categories', { categories: categories, products: products,
           logged_in: req.session.logged_in,
       })
   } catch (err) {
