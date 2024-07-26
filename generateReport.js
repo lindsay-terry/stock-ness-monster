@@ -49,7 +49,7 @@ const generateReport = async () => {
 };
 
 // Schedule the report to run every 5 minutes
-const job = new CronJob('*/5 * * * *', generateReport, null, true, 'America/New_York');
+const job = new CronJob('0 0 * * *', generateReport, null, true, 'America/Los_Angeles');
 
 console.log('Starting the cron job...');
 job.start();
