@@ -139,3 +139,20 @@ h1 {
 .orderTitle{
   color: var(--dark-green);
 }
+
+
+
+/* FOOTER */
+
+.footer {
+      background-color: #f6c244;
+      padding: 20px 0;
+      box-shadow: 5px 5px 2px black;
+
+    }
+    .footer a {
+      color: var(--dark-green);
+       text-decoration: none;
+       font-weight: bold;
+       text-shadow: 1rem;
+    }
