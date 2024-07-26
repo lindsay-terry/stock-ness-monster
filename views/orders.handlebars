@@ -7,10 +7,84 @@
         <figure class="col-md-6 col-sm-12">
             <img class="img-fluid" src="/images/island.png" alt="Green and black pixelated island with monster tentacles coming out of it.">
         </figure>
+
         <div class="col-md-6 col-sm-12">
             <p class="m-4">
                 View your all orders here? View orders by id here? Place an order here?
             </p>
+
+
+            {{!-- FORM TO SUBMIT AN ORDER --}}
+<div class="availability-container">
+  <div class="container">
+    <h2 class="mt-5 orderTitle">Availability</h2>
+    <!-- Check availability form -->
+    <form id="available-form" class="mt-4">
+      <div class="form-group">
+        <label for="product">Product:</label>
+        <input type="text" class="form-control form-control-custom" id="product" name="product" placeholder="Type your product here" required>
+      </div>
+      <div class="form-group">
+        <label for="quantity">Quantity:</label>
+        <input type="number" class="form-control form-control-custom" id="quantity" min="1" placeholder="Type your quantity here" name="quantity" required>
+      </div>
+      <div class="button-group">
+        <button type="button" id="checkAvailability" class="btn btn-primary check-availability-btn">Check Availability</button>
+        <div class="icon-container">
+          <i class="fa-solid fa-angles-right nextTorder"></i>
+        </div>
+        <button type="submit" id="makeOrder" class="btn btn-primary availability disabled">Make an order</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Placing order form -->
+<div class="place-order-main-container">
+  <div>
+    <h2 class="mt-5 orderTitle">Place Your Order</h2>
+    <form id="orderForm" class="mt-4 order-form">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control form-control-custom" id="name" name="name" placeholder="Type your full name" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number:</label>
+        <input type="text" class="form-control form-control-custom" id="phone" name="phone number" placeholder="Type your phone number" required>
+      </div>
+      <div class="form-group">
+        <label for="product">Product:</label>
+        <input type="text" class="form-control form-control-custom" id="product" name="product" placeholder="Type your product here" required>
+      </div>
+      <div class="form-group">
+        <label for="quantity">Quantity:</label>
+        <input type="number" class="form-control form-control-custom" id="quantity" min="1" placeholder="Type your quantity here" name="quantity" required>
+      </div>
+      <div class="button-group">
+        <button type="button" id="go-back-availability" class="btn btn-primary">Back</button>
+        <div class="icon-container">
+          <i class="fa-solid fa-angles-left"></i>
+        </div>
+        <button type="submit" id="makeOrder" class="btn btn-primary availability">Make an order</button>
+        <div class="icon-container">
+          <i class="fa-solid fa-angles-right nextTorder"></i>
+        </div>
+        <button type="submit" id="makeOrder" class="btn btn-primary availability disabled">Payment</button>
+      </div>
+    </form>
+  </div>
+</div>
+
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+<script src="/js/orders.js"></script>
