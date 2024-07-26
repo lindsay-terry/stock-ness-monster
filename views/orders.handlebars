@@ -15,22 +15,30 @@
                   <button class="btn btn-warning order-toggle">Create an order</button>
                 </div>
                 <h3 class="m-2">Open Orders:</h3>
-                <div class="open-orders-div m-4">
-                   {{#each orderData}}
+                <div class="row open-orders-div m-4">
+                   {{#each orderData}} 
                       {{#unless this.isFulfilled}}
-                    <div class="card text-white bg-success mb-3" style="width: 16rem;">
+                    <div class="card text-white bg-success mb-3" style="width: 18rem;">
                       <div class="card-header bold">{{customer.company_name}}</div>
-                      <div class="card-body">
+                      <div class="card-body align-items-end">
                         <ul>
                         {{#each products}}
                         <li>
-                        <h5 class="card-title">{{this.item_name}} - {{orderProduct.quantity}}</h5> <p>{{this.price}} /ea</p>
+                        <h5 class="card-title">
+                             {{this.item_name}} - {{orderProduct.quantity}}
+                        </h5>
                         </li>
+                        
+                          <p class="m-1 text-center font-weight-light"><em>Available stock: {{this.stock}}</em></p>
+                        
+                        {{!-- <p>Quantity available:</p> {{this.stock}} --}}
                         {{/each}}
                         </ul>
-                        
-                        <button class="btn btn-warning">Close Order</button>
-                        <button class="btn btn-warning">Edit Order</button>
+                        <div class="">
+                          <button class="btn btn-warning close-order" data-id="{{id}}">Close Order</button>
+                          <button class="btn btn-warning edit-order" data-id="{{id}}">Edit Order</button>
+                        </div>
+
                       </div>
                     </div>
                     {{/unless}}
@@ -48,7 +56,7 @@
                         <ul>
                         {{#each products}}
                         <li>
-                        <h5 class="card-title">{{this.item_name}} - {{orderProduct.quantity}}</h5> <p>{{this.price}} /ea</p>
+                        <h5 class="card-title">{{this.item_name}} - {{orderProduct.quantity}}</h5> 
                         </li>
                         {{/each}}
                         </ul>
