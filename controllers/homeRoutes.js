@@ -111,15 +111,20 @@ router.get('/customers', withAuth, async (req, res) => {
                 },
                 {
                     model: Order,
+                    include: [{ model: Product }],
                 },
             ],
         })
         const customerData = data.map(customer => customer.get({ plain: true }));
 
+        const users = await User.findAll({
+            attributes: ['id', 'first_name', 'last_name'],
+        })
+        const userData = users.map(user => user.get({ plain: true }));
+
         res.render('customers', {
-            customerData: customerData, logged_in: req.session.logged_in,
+            customerData: customerData, userData: userData, logged_in: req.session.logged_in,
         });
-        console.log(customerData);
     } catch (err) {
         res.status(500).json(err);
     };

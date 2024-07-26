@@ -1,0 +1,11 @@
+<div class="form-floating mb-1">
+    <input type="text" class="form-control" id="company-name" placeholder="Company Name">
+    <label for="company-name">Company Name</label> 
+</div>
+
+<select class="form-select" aria-label="account-manager-dropdown" id="account-manager-dropdown">
+  <option selected>Select an account manager</option>
+  {{#each userData}} 
+  <option value="{{id}}">{{first_name}} {{last_name}}</option>
+  {{/each}}
+</select>

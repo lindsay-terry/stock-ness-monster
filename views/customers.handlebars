@@ -3,14 +3,49 @@
 </div>
 <div class="row">
     <div class="col-12 d-flex justify-content-evenly">
-        <button class="btn btn-warning m-2 fs-4">Add a Customer</button>
-        <button class="btn btn-warning m-2 fs-4">Edit a Customer</button>
-        {{!-- <button class="btn btn-warning m-2 fs-4">Delete a Customer</button> --}}
+        <button class="btn btn-warning m-3 fs-4 add-cus-btn">Add a Customer</button>
     </div>
 </div>
+
+{{!-- form to add a customer --}}
+<div class="row">
+    <div class="col-12 d-flex justify-content-center">
+        <form class="m-4 text-success" id="add-customer-form" style="display: none">
+            {{> customer-form }}
+            <div class="d-flex justify-content-center m-2 submit-div">
+                <button class="btn btn-warning submit-form" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{{!-- form to edit customer --}}
+<div class="row">
+    <div class="col-12 d-flex justify-content-center">
+        <form class="m-4 text-success" id="edit-customer-form" style="display: none">
+
+            <div class="form-floating mb-1">
+                <input type="text" class="form-control" id="edit-company-name" placeholder="Company Name">
+                <label for="edit-company-name">Company Name</label> 
+            </div>
+
+            <select class="form-select" aria-label="edit-account-manager-dropdown" id="edit-account-manager-dropdown">
+            <option selected>Select an account manager</option>
+            {{#each userData}} 
+            <option value="{{id}}">{{first_name}} {{last_name}}</option>
+            {{/each}}
+            </select>
+
+            <div class="d-flex justify-content-center m-2">
+                <button class="btn btn-warning submit-edit-btn" data-id="" type="submit">Edit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <div class="row">
     <div class="d-flex flex-column gap-4 col-md-6 col-sm-12">
-        <div class="accordion customer-area" id="accordionExample">
+        <div class="accordion customer-area mx-4" id="accordionExample">
         {{#each customerData}}
         <div class="accordion-item bg-dark text-warning">
             <h2 class="accordion-header" id="heading{{id}}">
@@ -19,30 +54,38 @@
             </button>
             </h2>
             <div id="collapse{{id}}" class="accordion-collapse collapse" aria-labelledby="heading{{id}}" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-                <p>
-                    <strong>Account Manager:</strong> <a href="/users" class="text-warning bold">{{user.first_name}} {{user.last_name}}</a>
-                </p>
-                <p>
-                    <strong>Customer ID:</strong> {{id}}
-                </p>
-                <p>
-                    <strong>Order IDs:</strong>
-                    <ul>
-                        {{#each orders as |order|}}
-                        <li> 
-                            <a href="#" class="text-decoration-none text-success">{{id}}</a>
-                            {{/each}}
-                        </li>
-                    </ul>
-                </p>
-            </div>
+                <div class="row">
+                    <div class="d-flex col-md-6 col-sm-12">
+                        <div class="accordion-body">
+                            <p>
+                                <strong>Account Manager:</strong> <a href="/users" class="text-warning bold">{{user.first_name}} {{user.last_name}}</a>
+                            </p>
+                            <p>
+                                <strong>Customer ID:</strong> {{id}}
+                            </p>
+                            <p>
+                                <strong>Order IDs:</strong>
+                                <ul>
+                                    {{#each orders as |order|}}
+                                    <li> 
+                                        <a href="/orders" class="text-decoration-none text-success">{{id}}</a>
+                                        {{/each}}
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="d-flex col-md-6 col-sm-12 align-items-start my-auto justify-content-center ">
+                        <button class="btn btn-warning edit-btn m-3" data-bs-toggle="edit-customer-modal" data-bs-target="#edit-customer-modal" data-id="{{id}}">Edit</button>
+                        <button class="btn btn-danger del-btn m-3" data-id="{{id}}">Delete</button>
+                    </div>
+                </div>
             </div>
         </div>   
         {{/each}}
         </div>
     </div>
-    <figure class="d-grid gap-2 col-md-6 col-sm-12 mx-auto">
+    <figure class="col-md-6 col-sm-12">
         <img src="/images/camel.png">
     </figure>
 
