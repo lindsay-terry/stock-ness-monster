@@ -52,3 +52,87 @@ h1 {
 #user-form {
   color: var(--pistachio);
 }
+
+/* ORDERS */
+
+.availability-container {
+  width: 100%;
+  height: 40vh;
+  background-color: var(--dark-green);
+  opacity: 0.8;
+  box-shadow: 5px 5px 5px var(--pistachio);
+  border-radius: 8px;
+}
+
+.orderTitle {
+  margin-top: 20px;
+}
+
+.form-control-custom {
+  background-color: white;
+  width: 100%;
+  box-sizing: border-box; 
+}
+
+.form-group {
+  margin-top: 1.2rem;
+  width: 100%; 
+}
+
+.btn-primary {
+  margin-top: 1.1rem;
+  background-color: #f8cb52;
+  color: black;
+}
+
+.makeOrder {
+  opacity: 0.2; 
+  pointer-events: none; 
+}
+
+.button-group {
+  display: flex;
+  gap: 20px; 
+  width: 100%; 
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nextTorder {
+  font-size: 1.5rem; 
+}
+
+.icon-container i {
+  margin-top: 15px;
+}
+
+#orderForm {
+
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  width: 100%; 
+  
+   
+}
+
+.place-order-main-container {
+  display: none;
+  height: 60vh;
+  width: 100%;
+  background-color: white;
+  box-shadow: 5px 5px 5px black;
+  justify-content: center;
+  border-radius: 10px;
+ 
+}
+
+.container {
+  width: 100%;
+}
+
