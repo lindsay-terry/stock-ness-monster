@@ -41,8 +41,8 @@
 
 
 const router = require('express').Router();
-const Order = require('../../models/');
-const Product = require('../../models/');
+const {Order} = require('../../models/');
+const {Product} = require('../../models/');
 
 // Route to create an order
 router.post('/create', async (req, res) => {

@@ -136,3 +136,6 @@ h1 {
   width: 100%;
 }
 
+.orderTitle{
+  color: var(--dark-green);
+}

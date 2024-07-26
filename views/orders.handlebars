@@ -42,33 +42,36 @@
 <!-- Placing order form -->
 <div class="place-order-main-container">
   <div>
-    <h2 class="mt-5 orderTitle">Place Your Order</h2>
+    <h2 class="mt-5 orderTitle orderTitle">Place Your Order</h2>
+
     <form id="orderForm" class="mt-4 order-form">
+
       <div class="form-group">
-        <label for="name">Name:</label>
-        <input type="text" class="form-control form-control-custom" id="name" name="name" placeholder="Type your full name" required>
+        <label class="orderTitle" for="companyName">Company's name:</label>
+        <input type="text" class="form-control form-control-custom " id="companyName" name="companyName" placeholder="Type your full name" required>
       </div>
+
       <div class="form-group">
-        <label for="phone">Phone Number:</label>
-        <input type="text" class="form-control form-control-custom" id="phone" name="phone number" placeholder="Type your phone number" required>
-      </div>
-      <div class="form-group">
-        <label for="product">Product:</label>
+        <label class="orderTitle" for="product">Products:</label>
         <input type="text" class="form-control form-control-custom" id="product" name="product" placeholder="Type your product here" required>
       </div>
+
       <div class="form-group">
-        <label for="quantity">Quantity:</label>
+        <label class="orderTitle" for="quantity">Quantity:</label>
         <input type="number" class="form-control form-control-custom" id="quantity" min="1" placeholder="Type your quantity here" name="quantity" required>
       </div>
+
       <div class="button-group">
         <button type="button" id="go-back-availability" class="btn btn-primary">Back</button>
         <div class="icon-container">
           <i class="fa-solid fa-angles-left"></i>
         </div>
+
         <button type="submit" id="makeOrder" class="btn btn-primary availability">Make an order</button>
         <div class="icon-container">
           <i class="fa-solid fa-angles-right nextTorder"></i>
         </div>
+
         <button type="submit" id="makeOrder" class="btn btn-primary availability disabled">Payment</button>
       </div>
     </form>
