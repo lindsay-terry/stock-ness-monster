@@ -100,8 +100,28 @@ router.get('/categories', withAuth, async (req, res) => {
 // Route to order page
 router.get('/orders', withAuth, async (req, res) => {
     try {
+        const data = await Order.findAll({
+            include: [
+                { model : Customer },
+                { model : Product },
+            ],
+        })
+        const orderData = data.map(order => order.get({ plain: true }));
+
+        const products = await Product.findAll({
+            include: [
+                {   model: Category, },
+            ],
+        })
+        const productData = products.map(order => order.get({ plain: true }));
+
+        const users = await User.findAll({
+            attributes: ['id', 'first_name', 'last_name'],
+        })
+        const userData = users.map(order => order.get({ plain: true }));
+
         res.render('orders', {
-            logged_in: req.session.logged_in,
+            orderData: orderData, productData: productData, userData: userData, logged_in: req.session.logged_in,
         })
     } catch (err) {
         res.status(500).json(err);
