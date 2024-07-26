@@ -1,85 +1,88 @@
-<h1>Latest Report</h1>
+<body>
+  <div class="container">
+    <h1 class="mt-5 text-center">Latest Report</h1>
 
-<h3>Users</h3>
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Username</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each report.users}}
-    <tr>
-      <td>{{id}}</td>
-      <td>{{first_name}} {{last_name}}</td>
-      <td>{{username}}</td>
-    </tr>
-    {{/each}}
-  </tbody>
-</table>
+    <h3 class="mt-4">Users</h3>
+    <table class="table table-striped table-dark">
+      <thead class="thead-dark">
+        <tr>
+          <th class="text-warning">ID</th>
+          <th class="text-warning">Name</th>
+          <th class="text-warning">Username</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each report.users}}
+        <tr>
+          <td class="text-warning">{{id}}</td>
+          <td class="text-warning">{{first_name}} {{last_name}}</td>
+          <td class="text-warning">{{username}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
 
-<h3>Customers</h3>
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Company</th>
-      <th>Account Manager ID</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each report.customers}}
-    <tr>
-      <td>{{id}}</td>
-      <td>{{company_name}}</td>
-      <td>{{account_manager_id}}</td>
-    </tr>
-    {{/each}}
-  </tbody>
-</table>
+    <h3 class="mt-4">Customers</h3>
+    <table class="table table-striped table-dark">
+      <thead class="thead-dark">
+        <tr>
+          <th class="text-warning">ID</th>
+          <th class="text-warning">Company</th>
+          <th class="text-warning">Account Manager ID</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each report.customers}}
+        <tr>
+          <td class="text-warning">{{id}}</td>
+          <td class="text-warning">{{company_name}}</td>
+          <td class="text-warning">{{account_manager_id}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
 
-<h3>Orders</h3>
-<table>
-  <thead>
-    <tr>
-      <th>ID</h>
-      <th>Fulfilled</th>
-      <th>Content ID</th>
-      <th>Customer ID</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each report.orders}}
-    <tr>
-      <td>{{id}}</td>
-      <td>{{isFulfilled}}</td>
-      <td>{{content}}</td>
-      <td>{{customer_id}}</td>
-    </tr>
-    {{/each}}
-  </tbody>
-</table>
+    <h3 class="mt-4">Orders</h3>
+    <table class="table table-striped table-dark">
+      <thead class="thead-dark">
+        <tr>
+          <th class="text-warning">ID</th>
+          <th class="text-warning">Fulfilled</th>
+          <th class="text-warning">Content ID</th>
+          <th class="text-warning">Customer ID</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each report.orders}}
+        <tr>
+          <td class="text-warning">{{id}}</td>
+          <td class="text-warning">{{isFulfilled}}</td>
+          <td class="text-warning">{{content}}</td>
+          <td class="text-warning">{{customer_id}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
 
-<h3>Products</h3>
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Price</th>
-      <th>Stock</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each report.products}}
-    <tr>
-      <td>{{id}}</td>
-      <td>{{item_name}}</td>
-      <td>{{price}}</td>
-      <td>{{stock}}</td>
-    </tr>
-    {{/each}}
-  </tbody>
-</table>
+    <h3 class="mt-4">Products</h3>
+    <table class="table table-striped table-dark">
+      <thead class="thead-dark">
+        <tr>
+          <th class="text-warning">ID</th>
+          <th class="text-warning">Name</th>
+          <th class="text-warning">Price</th>
+          <th class="text-warning">Stock</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each report.products}}
+        <tr>
+          <td class="text-warning">{{id}}</td>
+          <td class="text-warning">{{item_name}}</td>
+          <td class="text-warning">{{price}}</td>
+          <td class="text-warning">{{stock}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>

@@ -26,11 +26,13 @@ router.get('/login', async (req, res) => {
 });
 
 // Route to get the latest report
-router.get('/report', async (req, res) => {
+router.get('/report', withAuth, async (req, res) => {
     try {
       const report = await getLatestReport();
       if (report) {
-        res.render('report', { report: report.data });
+        res.render('report', { 
+            logged_in: req.session.logged_in,
+            report: report.data });
       } else {
         res.status(500).send('Error generating report');
       }
@@ -40,10 +42,11 @@ router.get('/report', async (req, res) => {
   });
   
   // Route to view all reports
-  router.get('/allreports', async (req, res) => {
+  router.get('/allreports', withAuth, async (req, res) => {
     try {
       const reports = await getAllReports();
       res.render('allreports', {
+        logged_in: req.session.logged_in,
         reports: reports.map(report => {
           return {
             timestamp: report.timestamp,

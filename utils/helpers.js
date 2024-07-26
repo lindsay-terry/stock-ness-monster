@@ -6,4 +6,4 @@ const formatDate = (date) => {
   return moment(date).tz(timezone).format('MMMM Do YYYY, h:mm:ss a z');
 };
 
-module.exports = formatDate;
+module.exports = { formatDate };
