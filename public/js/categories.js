@@ -150,20 +150,20 @@ const deleteCategory = async (event) => {
   }
 };
 
-document
-    .querySelector('#all-categories')
-    .addEventListener('click', getAllCategories);
+// document
+//     .querySelector('#all-categories')
+//     .addEventListener('click', getAllCategories);
 
-document
-    .querySelector('#category-by-id')
-    .addEventListener('click', categoryById);
+// document
+//     .querySelector('#category-by-id')
+//     .addEventListener('click', categoryById);
 
-document
-    .querySelector('#add-category')
-    .addEventListener('click', displayCategoryForm);
+// document
+//     .querySelector('#add-category')
+//     .addEventListener('click', displayCategoryForm);
 
-document
-    .querySelector('#category-submit')
-    .addEventListener('click', addCategory);
+// document
+//     .querySelector('#category-submit')
+//     .addEventListener('click', addCategory);
 
-document.addEventListener('click', deleteCategory);
+// document.addEventListener('click', deleteCategory);
