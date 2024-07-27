@@ -56,6 +56,26 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.put('/:id', async (req, res) => {
+  
+  try {
+    const [updated] = await Product.update(req.body, {
+      where: { id: req.params.id }
+    });
+
+    if (updated) {
+      const updatedProduct = await Product.findByPk(req.params.id, {
+        include: [{ model: Category }]
+      });
+      res.json(updatedProduct);
+    } else {
+      res.status(404).json({ message: 'Product not found' });
+    }
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to update product', error: err.message });
+  }
+});
+
 router.delete('/:id', async (req, res) => {
   try {
     const deleteProduct = await Product.destroy({

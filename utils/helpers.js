@@ -6,4 +6,8 @@ const formatDate = (date) => {
   return moment(date).tz(timezone).format('MMMM Do YYYY, h:mm:ss a z');
 };
 
-module.exports = { formatDate };
+const eq = (a, b) => {
+  return a === b;
+};
+
+module.exports = { formatDate, eq };

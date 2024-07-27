@@ -36,7 +36,7 @@ Product.init({
     modelName: 'product',
     freezeTableName: true,
     timestamps: false,
-    underscored: true,
+    underscored: true
 });
 
 module.exports = Product;
