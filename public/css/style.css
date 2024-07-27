@@ -170,3 +170,25 @@ h1 {
       color: black;
 
     }
+
+
+/* Accordion */
+.accordion-button:focus {
+  box-shadow: none;
+}
+
+/* custom card on homepage */
+.card-custom-header {
+  background-color: var(--rich-black);
+  color: var(--tea-green);
+}
+
+.card-custom-body {
+  background-color: var(--dark-green);
+  color: var(--tea-green);
+}
+
+/* custom image styling */
+.custom-image {
+  box-shadow: 3px 3px 25px 5px var(--rich-black);
+}
