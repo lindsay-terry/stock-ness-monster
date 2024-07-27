@@ -20,6 +20,7 @@ const toggleEditForm = async (id) => {
     } else {
         form.setAttribute('style', 'display: none');
     };
+    form.scrollIntoView({ behavior: 'smooth'});
 };
 
 //function to handle adding a customer

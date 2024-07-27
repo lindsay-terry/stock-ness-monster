@@ -6,8 +6,16 @@ const { getLatestReport, getAllReports } = require('../generateReport');
 // Route to home page
 router.get('/', withAuth, async (req, res) => {
     try {
+        const userId = req.session.user_id;
+        const result = await User.findByPk(userId, {
+            attributes: ['first_name'],
+        });
+        
+        // gets access to logged in first name to display on homepage
+        const firstName = result.first_name;
+
         res.render('homepage', {
-            logged_in: req.session.logged_in,
+            logged_in: req.session.logged_in, firstName: firstName,
         });
     } catch (err) {
         res.status(500).json(err);

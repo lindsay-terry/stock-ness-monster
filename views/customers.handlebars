@@ -7,41 +7,44 @@
     </div>
 </div>
 
+<section class="d-flex justify-content-center">
 {{!-- form to add a customer --}}
-<div class="row">
-    <div class="col-12 d-flex justify-content-center">
-        <form class="m-4 text-success" id="add-customer-form" style="display: none">
-            {{> customer-form }}
-            <div class="d-flex justify-content-center m-2 submit-div">
-                <button class="btn btn-warning submit-form" type="submit">Submit</button>
-            </div>
-        </form>
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            <form class="m-4 text-success" id="add-customer-form" style="display: none">
+                <h5 class="text-warning">Enter new customer information</h5>
+                {{> customer-form }}
+                <div class="d-flex justify-content-center m-2 submit-div">
+                    <button class="btn btn-warning submit-form" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-{{!-- form to edit customer --}}
-<div class="row">
-    <div class="col-12 d-flex justify-content-center">
-        <form class="m-4 text-success" id="edit-customer-form" style="display: none">
+    {{!-- form to edit customer --}}
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            <form class="m-4 text-success" id="edit-customer-form" style="display: none">
+                <h5 class="text-warning">Update customer information</h5>
+                <div class="form-floating mb-1">
+                    <input type="text" class="form-control" id="edit-company-name" placeholder="Company Name">
+                    <label for="edit-company-name">Company Name</label> 
+                </div>
 
-            <div class="form-floating mb-1">
-                <input type="text" class="form-control" id="edit-company-name" placeholder="Company Name">
-                <label for="edit-company-name">Company Name</label> 
-            </div>
+                <select class="form-select" aria-label="edit-account-manager-dropdown" id="edit-account-manager-dropdown">
+                <option selected>Select an account manager</option>
+                {{#each userData}} 
+                <option value="{{id}}">{{first_name}} {{last_name}}</option>
+                {{/each}}
+                </select>
 
-            <select class="form-select" aria-label="edit-account-manager-dropdown" id="edit-account-manager-dropdown">
-            <option selected>Select an account manager</option>
-            {{#each userData}} 
-            <option value="{{id}}">{{first_name}} {{last_name}}</option>
-            {{/each}}
-            </select>
-
-            <div class="d-flex justify-content-center m-2">
-                <button class="btn btn-warning submit-edit-btn" data-id="" type="submit">Edit</button>
-            </div>
-        </form>
+                <div class="d-flex justify-content-center m-2">
+                    <button class="btn btn-warning submit-edit-btn" data-id="" type="submit">Edit</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
+</section>
 
 <div class="row">
     <div class="d-flex flex-column gap-4 col-md-6 col-sm-12">
@@ -86,7 +89,7 @@
         </div>
     </div>
     <figure class="col-md-6 col-sm-12">
-        <img src="/images/camel.png">
+        <img class="img-fluid custom-image" src="/images/camel.png" alt="Pixelated green image of camel crossing desert with plant skeleton in background">
     </figure>
 
 
