@@ -77,4 +77,30 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
+// Update user route
+router.put('/:id', async (req, res) => {
+    try {
+        const userId = req.params.id;
+
+        // Fetch the user to be updated
+        const user = await User.findByPk(userId);
+        if (!user) {
+            res.status(404).json({ message: 'User not found' });
+            return;
+        }
+
+        // Update user data
+        const updatedUser = await user.update({
+            first_name: req.body.firstName,
+            last_name: req.body.lastName,
+            username: req.body.username,
+            password: req.body.password
+        });
+
+        res.status(200).json({ message: 'Profile updated successfully', user: updatedUser });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 module.exports = router;
