@@ -133,39 +133,110 @@ const deleteUser = async (event) => {
     });
 };
 
-//function to edit a user
+// Function to edit a user
 const editUser = async (event) => {
     event.preventDefault();
     const id = event.target.getAttribute('data-id');
+    console.log(`Editing user with id: ${id}`); // Debug log
 
+    const firstName = document.getElementById(`edit-first-name-${id}`).value.trim();
+    const lastName = document.getElementById(`edit-last-name-${id}`).value.trim();
+    const username = document.getElementById(`edit-username-${id}`).value.trim(); 
+    const password = document.getElementById(`edit-password-${id}`).value.trim();
+    const confirmPassword = document.getElementById(`confirm-edit-password-${id}`).value.trim();
+    
+    console.log(`New values - First Name: ${firstName}, Last Name: ${lastName}, Username: ${username}, Password: ${password}, Confirm Password: ${confirmPassword}`); // Debug log
 
+    // Added password match validation
+    if (password !== confirmPassword) {
+        Swal.fire({
+            title: 'Error!',
+            text: 'Passwords do not match',
+            icon: 'error',
+            confirmButtonText: 'Okay',
+            customClass: {
+                popup: 'custom-error-popup',
+                confirmButton: 'bg-warning'
+            }
+        });
+        return;
+    }
+
+    if (firstName && lastName && username && password) {
+        try {
+            const response = await fetch(`/api/users/${id}`, {
+                method: 'PUT',
+                body: JSON.stringify({ firstName, lastName, username, password }),
+                headers: { 'Content-Type': 'application/json' },
+            });
+
+            if (response.ok) {
+                await Swal.fire({
+                    title: 'Success!',
+                    text: 'Profile updated successfully',
+                    icon: 'success',
+                    confirmButtonText: 'Okay',
+                    customClass: {
+                        popup: 'custom-confirm-popup',
+                        confirmButton: 'custom-confirm-button'
+                    }
+                });
+                document.location.replace('/users');
+            } else {
+                throw new Error('Failed to update profile');
+            }
+        } catch (error) {
+            Swal.fire({
+                title: 'Error!',
+                text: error,
+                icon: 'error',
+                confirmButtonText: 'Okay',
+                customClass: {
+                    popup: 'custom-error-popup',
+                    confirmButton: 'bg-warning'
+                }
+            });
+        }
+    }
 };
 
-//event listeners
-//event listener for add user button to toggle form
+// Event listeners
+// Event listener for add user button to toggle form
 document
     .getElementById('add-usr')
     .addEventListener('click', toggleForm);
 
-//event listener for submit button to create a new user
+// Event listener for submit button to create a new user
 document
     .getElementById('create-usr')
     .addEventListener('click', addUser);
 
-//event listener for edit user button to edit users
+// Event listener for edit user button to edit users
 document
-    .querySelector('.modal-container')    
-    .addEventListener('click', function(event) {
+    .querySelector('.modal-container')
+    .addEventListener('click', function (event) {
         if (event.target.classList.contains('edit-btn')) {
-            editUser(event);
+            const userId = event.target.getAttribute('data-id');
+            const editFormContainer = document.getElementById(`edit-form-container-${userId}`);
+            editFormContainer.style.display = 'block';
+            console.log(`Displaying edit form for user with id: ${userId}`); // Debug log
         }
     });
 
-//event listener for delete button to delete users
+// Event listener for delete button to delete users
 document
     .querySelector('.modal-container')
-    .addEventListener('click', function(event) {
+    .addEventListener('click', function (event) {
         if (event.target.classList.contains('del-btn')) {
             deleteUser(event);
+        }
+    });
+
+// Event listener for submit button to save edited user
+document
+    .querySelector('.modal-container')
+    .addEventListener('submit', function (event) {
+        if (event.target.id.startsWith('edit-user-form-')) {
+            editUser(event);
         }
     });

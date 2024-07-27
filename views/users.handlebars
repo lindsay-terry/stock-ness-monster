@@ -29,35 +29,66 @@
                 </button>
 
                 {{!-- modal to view user data  --}}
-                <div class="modal fade" id="myModal{{id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="myModal{{id}}Label" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content modal-style">
+            <div class="modal fade" id="myModal{{id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="myModal{{id}}Label" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content modal-style">
                         <div class="modal-header">
-                            <h2 class="modal-title fs-5" id="myModal{{id}}Label">{{first_name}} {{last_name}}</h2>
+                            <h2 class="modal-title fs-5" id="myModal{{id}}Label">{{this.first_name}} {{this.last_name}}</h2>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p>Accounts: 
+                            <p>Accounts:
                                 <ul>
-                                    {{#each customers}} 
+                                    {{#each customers}}
                                     <li>{{this.company_name}}</li>
                                     {{/each}}
-                                </ul> 
+                                </ul>
                             </p>
                             <p>
                                 Username: {{this.username}}
                             </p>
+
+                            <!-- Added form for editing user -->
+                            <div id="edit-form-container-{{id}}" style="display: none;">
+                                <form id="edit-user-form-{{id}}" data-id="{{id}}">
+                                    <div class="form-floating mb-1">
+                                        <input type="text" class="form-control" id="edit-first-name-{{id}}" placeholder="First Name" value="{{this.first_name}}">
+                                        <label for="edit-first-name-{{id}}">First Name</label>
+                                    </div>
+                                    <div class="form-floating mb-1">
+                                        <input type="text" class="form-control" id="edit-last-name-{{id}}" placeholder="Last Name" value="{{this.last_name}}">
+                                        <label for="edit-last-name-{{id}}">Last Name</label>
+                                    </div>
+                                    <div class="form-floating mb-1">
+                                        <input type="text" class="form-control" id="edit-username-{{id}}" placeholder="Username" value="{{this.username}}">
+                                        <label for="edit-username-{{id}}">Username</label>
+                                    </div>
+                                    <div class="form-floating mb-1">
+                                        <input type="password" class="form-control" id="edit-password-{{id}}" placeholder="New Password">
+                                        <label for="edit-password-{{id}}">New Password</label>
+                                    </div>
+                                    <!-- Added Confirm Password Field -->
+                                    <div class="form-floating mb-1">
+                                        <input type="password" class="form-control" id="confirm-edit-password-{{id}}" placeholder="Confirm New Password">
+                                        <label for="confirm-edit-password-{{id}}">Confirm New Password</label>
+                                    </div>
+                                    <div class="d-flex justify-content-center">
+                                        <button type="submit" class="btn btn-warning btn-lg">Save Changes</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <div class="container d-flex justify-content-evenly button-area">
-                                <button type="button" class="btn btn-danger del-btn" data-bs-dismiss="modal" data-id="{{id}}">Delete</button>
-                                <button type="button" class="btn btn-warning edit-btn" data-bs-dismiss="modal" data-id="{{id}}">Edit</button>
+                                <button type="button" class="btn btn-danger del-btn" data-id="{{id}}">Delete</button>
+                                <!-- Removed data-bs-dismiss from Edit button -->
+                                <button type="button" class="btn btn-warning edit-btn" data-id="{{id}}">Edit</button>
                                 <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
-                        </div>
                     </div>
                 </div>
+            </div>
                 {{!-- end modal  --}}
                 {{/each}}
             </div>
