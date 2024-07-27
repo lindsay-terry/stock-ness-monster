@@ -1,47 +1,64 @@
-// const router = require('express').Router();
-// const { Product } = require('../../models');
-
-// // Check product availability
-// router.post('/check-availability', async (req, res) => {
-//   try {
-//     const { product, quantity } = req.body;
-
-//     // Query to find the product by name
-//     const availableProduct = await Product.findOne({ where: { item_name: product } });
-
-//     if (!availableProduct) {
-//       return res.status(404).json({
-//         available: false,
-//         message: 'The product you are looking for is not available in the stock or check your spellings and try again.'
-//       });
-//     }
-
-//     // Check if the requested quantity is available
-//     if (quantity <= availableProduct.stock) {
-//       return res.status(200).json({
-//         available: true,
-//         message: 'The product is available. Please proceed to make an order.'
-//       });
-//     } else {
-//       return res.status(200).json({
-//         available: false,
-//         message: `The quantity you are looking for is more than what we have. We have only ${availableProduct.stock} of ${availableProduct.item_name}.`
-//       });
-//     }
-//   } catch (error) {
-//     console.error('Error checking product availability:', error);
-//     res.status(500).json({
-//       available: false,
-//       message: 'Internal server error. Please try again later.'
-//     });
-//   }
-// });
-
-// module.exports = router;
-
 
 const router = require('express').Router();
 const {Order, Product, OrderProduct} = require('../../models/');
+
+
+
+// Make order Route
+// -------------------------------------------------------------------------------------
+router.post('/make-order', async (req, res) => {
+  try {
+    const { company, productOrder, quantityOrder } = req.body;
+
+    // Validate input data
+    // --------------------
+    if (!company || !productOrder || isNaN(quantityOrder) || quantityOrder <= 0) {
+      return res.status(400).json({ message: 'Invalid data' });
+    }
+
+    // Find the product to check its stock
+    // ----------------------------------
+    const product = await Product.findOne({ where: { id: productOrder } });
+
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    if (product.stock < quantityOrder) {
+      return res.status(400).json({ message: 'Insufficient stock' });
+    }
+
+    // Create a new order
+    // ------------------
+    const newOrder = await Order.create({
+      company,
+      isFulfilled: false,
+    });
+
+    // Link the order to the product
+    // ------------------------------
+    await OrderProduct.create({
+      order_id: newOrder.id,
+      product_id: productOrder,
+      quantity: quantityOrder,
+    });
+
+    // Reduce the stock of the product
+    // -----------------------------
+    await Product.update(
+      { stock: product.stock - quantityOrder },
+      { where: { id: productOrder } }
+    );
+
+    res.json(newOrder);
+  } catch (error) {
+    console.error('Error creating order:', error);
+    res.status(500).json({ message: 'Failed to create order' });
+  }
+});
+
+
+// ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 // Route to create an order
