@@ -156,3 +156,17 @@ h1 {
        font-weight: bold;
        text-shadow: 1rem;
     }
+
+    .list-inline-item i {
+      font-size: 14px;
+      color: var(--dark-green);
+    }
+
+    .list-inline{
+      gap: 30px;
+    }
+
+    .text-center span{
+      color: black;
+
+    }
