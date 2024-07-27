@@ -70,11 +70,12 @@
                 </div>
                 </div>
 
-
-
             </div>
 
-            {{!-- FORM TO SUBMIT AN ORDER --}}
+
+            {{!-- FORM TO CHECK AVAILABILITY --}}
+       {{!-- -------------------------------------------------------------------------------------------- --}}
+
 <div class="availability-container" id="new-order" style="display: none">
   <div class="container">
     <h2 class="mt-5 orderTitle">Availability</h2>
@@ -99,45 +100,45 @@
   </div>
 </div>
 
-<!-- Placing order form -->
-<div class="place-order-main-container">
+<!-- FORM TO PLACE ORDER -->
+  {{!-- -------------------------------------------------------------------------------------------- --}}
+<!-- FORM TO PLACE ORDER -->
+<div class="place-order-main-container" style="display: none;">
   <div>
-    <h2 class="mt-5 orderTitle orderTitle">Place Your Order</h2>
+    <h2 class="mt-5 orderTitle">Place Your Order</h2>
 
     <form id="orderForm" class="mt-4 order-form">
-
       <div class="form-group">
         <label class="orderTitle" for="companyName">Company's name:</label>
-        <input type="text" class="form-control form-control-custom " id="companyName" name="companyName" placeholder="Type your full name" required>
+        <input type="text" class="form-control form-control-custom" id="companyName" name="companyName" placeholder="Type your full name" required>
       </div>
 
       <div class="form-group">
-        <label class="orderTitle" for="product">Products:</label>
-        <input type="text" class="form-control form-control-custom" id="product" name="product" placeholder="Type your product here" required>
+        <label class="orderTitle" for="orderProduct">Product:</label>
+        <input type="text" class="form-control form-control-custom" id="orderProduct" name="orderProduct" placeholder="Type your product here" required>
       </div>
 
       <div class="form-group">
-        <label class="orderTitle" for="quantity">Quantity:</label>
-        <input type="number" class="form-control form-control-custom" id="quantity" min="1" placeholder="Type your quantity here" name="quantity" required>
+        <label class="orderTitle" for="orderQuantity">Quantity:</label>
+        <input type="number" class="form-control form-control-custom" id="orderQuantity" min="1" placeholder="Type your quantity here" name="orderQuantity" required>
       </div>
 
       <div class="button-group">
-        <button type="button" id="go-back-availability" class="btn btn-primary">Back</button>
+        <button type="button" id="goBackAvailability" class="btn btn-primary">Back</button>
         <div class="icon-container">
           <i class="fa-solid fa-angles-left"></i>
         </div>
 
-        <button type="submit" id="makeOrder" class="btn btn-primary availability">Make an order</button>
+        <button type="submit" id="placeOrder" class="btn btn-primary">Place Order</button>
         <div class="icon-container">
           <i class="fa-solid fa-angles-right nextTorder"></i>
         </div>
 
-        <button type="submit" id="makeOrder" class="btn btn-primary availability disabled">Payment</button>
+        <button type="submit" id="paymentOrder" class="btn btn-primary disabled">Payment</button>
       </div>
     </form>
   </div>
 </div>
-
         </div>
     </div>
 </div>

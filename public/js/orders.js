@@ -106,8 +106,11 @@ document
   .querySelector('.view-closed')
   .addEventListener('click', toggleClosedOrders)
 
-document.addEventListener('DOMContentLoaded', () => {
 
+// check product availability and make new order
+// ----------------------------------------------------------------------------------------------------
+
+document.addEventListener('DOMContentLoaded', () => {
 
 const availableProducts = [
     "Keyboard",
@@ -123,17 +126,23 @@ const availableProducts = [
     source: availableProducts
   });
 
-  const orderFormEl = document.getElementById('orderForm');
+  
   const availabilityMainContainer = document.querySelector('.availability-container');
   const availabilityFormEl = document.getElementById('available-form');
   const productInputEl = document.getElementById('product');
   const quantityInputEl = document.getElementById('quantity');
   const availabilityBtn = document.getElementById('checkAvailability');
-  const makeOrderbtn = document.getElementById('makeOrder');
+  
   const placeOrderMainContainer = document.querySelector('.place-order-main-container');
   const placeOrderFormRl = document.querySelector('.order-form');
   const ordersContainerEl = document.querySelector('orders-container');
-  const goBackAvailability = document.getElementById('go-back-availability');
+  
+  const orderFormEl = document.getElementById('orderForm');
+  const companyNameInput = document.getElementById('companyName');
+  const orderProductInput = document.getElementById('orderProduct');
+  const orderQuantityInput = document.getElementById('orderQuantity');
+  const makeOrderbtn = document.getElementById('makeOrder');
+  const goBackAvailability = document.getElementById('goBackAvailability');
 
   
 
@@ -222,6 +231,7 @@ const availableProducts = [
       availabilityFormEl.appendChild(messageContainer);
       messageContainer.appendChild(message);
     }
+    
   };
 
   availabilityBtn.addEventListener('click', isAvailable);
@@ -231,35 +241,77 @@ const availableProducts = [
 // PLACE AN ORDER
 // ---------------------------------------------------------
 
+const placeOrder = (event) => {
+    try {
+      event.preventDefault();
+      availabilityMainContainer.style.display = 'none';
+      availabilityFormEl.style.display = 'none';
+      placeOrderMainContainer.style.display = 'flex';
+      orderFormEl.style.display = 'flex';
 
+      const product = productInputEl.value.trim();
+      const quantity = parseInt(quantityInputEl.value.trim(), 10);
+      if (product && quantity > 0) {
+        if (orderProductInput && orderQuantityInput) {
+          orderProductInput.value = product;
+          orderQuantityInput.value = quantity;
+          orderProductInput.style.fontStyle = 'italic';
+          orderQuantityInput.style.fontStyle = 'italic';
 
-const placeOrder = async (event) => {
-  try {
-    event.preventDefault();
-     availabilityMainContainer.setAttribute('style', 'display: none');
-    availabilityFormEl.setAttribute('style', 'display: none');
-    placeOrderMainContainer.setAttribute('style', 'display: flex');
-    orderFormEl.setAttribute('style', 'display: flex');
-
-   
-     
-
-
-    
-  } catch (error) {
-    console.error('Error:', error);
-  }
-};
+           orderProductInput.style.fontWeight = 'bold';
+          orderQuantityInput.style.fontWeight = 'bold';
+        } else {
+          console.error('Order form inputs not found.');
+        }
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
 makeOrderbtn.addEventListener('click', placeOrder);
 
+// SUBMIT THE ORDER TO THE SERVER
+// ---------------------------------------------------------------
+const handleOrderSubmit = async (event) => {
+  try {
+    event.preventDefault();
+
+    const company = companyNameInput.value.trim();
+    const productOrder = orderProductInput.value.trim();
+    const quantityOrder = parseInt(orderQuantityInput.value.trim(), 10);
+
+    if (company && productOrder && quantityOrder > 0) {
+      const response = await fetch('/api/orders/make-order', {
+        method: 'POST',
+        body: JSON.stringify({ company, productOrder, quantityOrder }),
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (response.ok) {
+        console.log('Order submitted successfully.');
+        // Add any additional success handling logic here
+      } else {
+        const errorData = await response.json();
+        console.error('Error submitting the order:', errorData.message);
+      }
+    } else {
+      console.error('Order form is not completely filled out.');
+    }
+  } catch (error) {
+    console.error('Error occurred while submitting the order:', error);
+  }
+};
+
+orderFormEl.addEventListener('submit', handleOrderSubmit);
 
 
 
 
 
 
- // GO BACK TO AVAILABILITY CHECK
+ // GO BACK TO AVAILABILITY CHECK IF USER WANTS TO
+//  -----------------------------------------------------------------
 
   const goBack = (event) => {
     try {
