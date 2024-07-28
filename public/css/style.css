@@ -12,7 +12,7 @@ body {
   color: var(--tea-green);
   font-family: Quicksand, sans-serif;
   font-size: 120%;
-  
+  min-width: 350px;
 }
 
 h1 {
@@ -177,4 +177,60 @@ color: var(--tea-green);
 /* custom image styling */
 .custom-image {
 box-shadow: 3px 3px 25px 5px var(--rich-black);
+}
+
+/* Products & Categories Page */
+.pc-main {
+  flex-direction: row;
+  justify-content: center;
+}
+
+.pc-display-container {
+  min-width: 300px;
+  margin-bottom: 16px;
+}
+
+.pc-input-container {
+  /* width: 100%; */
+  min-width: 200px;
+}
+
+.pc-image-container {
+  margin-right: 32px;
+}
+
+.pc-image-container img {
+  width: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+/* if we want to change the width of the input fields */
+/* .accordion-body {
+  width: 100%;
+} */
+
+@media screen and (max-width: 767px) {
+  .pc-main {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .pc-display-container {
+    width: 100%;
+  }
+
+  .pc-image-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    margin-top: 16px;
+    box-shadow: 3px 3px 25px 5px var(--rich-black);
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .pc-input-container {
+    justify-content: center;
+  }
 }
