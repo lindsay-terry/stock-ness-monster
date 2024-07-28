@@ -13,7 +13,6 @@ router.get('/', async (req, res) => {
     const plainProducts = products.map(product => product.toJSON());
 
     res.render('products', { products: plainProducts });
-    // res.status(200).json(products);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -33,7 +32,6 @@ router.get('/:id', async (req, res) => {
     const plainProduct = product.toJSON()
 
     res.render('products', { product: plainProduct });
-    // res.status(200).json(product);
   } catch (err) {
     res.status(500).json(err);
   }

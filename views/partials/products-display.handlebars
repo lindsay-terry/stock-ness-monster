@@ -13,23 +13,23 @@
               
               <div class="">
                 <div class="form-inline mb-2">
-                  <label for="product-id" class="me-2">ID:</label>
-                  <input type="text" id="product-id" class="form-control text-warning bg-dark" value="{{id}}" data-id="{{id}}" disabled>
+                  <label for="product-{{id}}" class="me-2">ID:</label>
+                  <input type="text" id="product-{{id}}" class="form-control text-warning bg-dark" value="{{id}}" data-id="{{id}}" disabled>
                 </div>
                 <div class="form-inline mb-2">
-                  <label for="product-name" class="me-2">Name:</label>
+                  <label for="product-name-{{id}}" class="me-2">Name:</label>
                   <input type="text" id="product-name-{{id}}" class="form-control text-warning bg-dark" value="{{item_name}}" data-id="{{id}}" disabled>
                 </div>
                 <div class="form-inline mb-2">
-                  <label for="product-price" class="me-2">Price: $</label>
+                  <label for="product-price-{{id}}" class="me-2">Price: $</label>
                   <input type="text" id="product-price-{{id}}" class="form-control text-warning bg-dark" value="{{price}}" data-id="{{id}}" disabled>
                 </div>
                 <div class="form-inline mb-2">
-                  <label for="product-stock" class="me-2">Stock:</label>
+                  <label for="product-stock-{{id}}" class="me-2">Stock:</label>
                   <input type="text" id="product-stock-{{id}}" class="form-control text-warning bg-dark" value="{{stock}}" data-id="{{id}}" disabled>
                 </div>
                 <div class="form-inline mb-2">
-                  <label for="category-dropdown" class="me-2">Category:</label>
+                  <label for="category-dropdown-{{id}}" class="me-2">Category:</label>
                   <select id="category-dropdown-{{id}}" class="form-select text-warning bg-dark" data-id="{{id}}" disabled>
                     {{#each ../categories}}
                     <option value="{{id}}" {{#if (eq id ../category.id)}}selected{{/if}}>{{name}}</option>
