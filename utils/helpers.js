@@ -10,4 +10,11 @@ const eq = (a, b) => {
   return a === b;
 };
 
-module.exports = { formatDate, eq };
+// helper to check array values for specific conditions
+const some = (array, key, value) => {
+  if (Array.isArray(array)) {
+    return array.some(item => item[key] === value);
+  }
+  return false;
+}
+module.exports = { formatDate, eq, some };

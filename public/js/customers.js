@@ -1,34 +1,56 @@
 //function to toggle display of add customer form
 const toggleCustomerForm = async(event) => {
     const form = document.querySelector('#add-customer-form');
-
     if (form.getAttribute('style') === 'display: none') {
         form.setAttribute('style', 'display: block;');
     } else {
         form.setAttribute('style', 'display: none');
     };
 };
-
+//function to get access to elements related to edit and delete
+const getAccess = (id) => {
+    const nameInput = document.querySelector(`#company-name-${id}`);
+    const accountInput = document.querySelector(`#edit-account-manager-dropdown${id}`);
+    //access to edit and delete buttons
+    const editBtn = document.getElementById(`edit-${id}`);
+    const deleteBtn = document.getElementById(`del-${id}`);
+    // access to confirm and cancel buttons
+    const confirmBtn = document.getElementById(`confirm-${id}`);
+    const cancelBtn = document.getElementById(`cancel-${id}`);
+    return { nameInput, accountInput, editBtn, deleteBtn, confirmBtn, cancelBtn };
+}
 //toggle edit form and tie id of customer to update to submit button
-const toggleEditForm = async (id) => {
-    const form = document.querySelector('#edit-customer-form');
-    const submit = document.querySelector('.submit-edit-btn');
-    submit.setAttribute('data-id', id);
-
-    if (form.getAttribute('style') === 'display: none') {
-        form.setAttribute('style', 'display: block;');
-    } else {
-        form.setAttribute('style', 'display: none');
-    };
-    form.scrollIntoView({ behavior: 'smooth'});
+const enableEditForm = async (event) => {
+    const id = event.target.getAttribute('data-id');
+    const { nameInput, accountInput, editBtn, deleteBtn, confirmBtn, cancelBtn } = getAccess(id);
+    //show confirm and cancel buttons
+    confirmBtn.classList.remove('d-none');
+    cancelBtn.classList.remove('d-none');
+    //hide edit and delete buttons
+    editBtn.classList.add('d-none');
+    deleteBtn.classList.add('d-none');
+    //enable input fields
+    nameInput.disabled = false;
+    accountInput.disabled = false;
 };
-
+const handleCancel = async (event) => {
+    const id = event.target.getAttribute('data-id');
+    const { nameInput, accountInput, editBtn, deleteBtn, confirmBtn, cancelBtn } = getAccess(id);
+    //show edit and delete buttons
+    editBtn.classList.remove('d-none');
+    deleteBtn.classList.remove('d-none');
+    //hide confirm and cancel buttons
+    confirmBtn.classList.add('d-none');
+    cancelBtn.classList.add('d-none');
+    //disable input fields
+    nameInput.disabled = true;
+    accountInput.disabled = true;
+};
 //function to handle adding a customer
 const handleAddCustomer = async () => {
     //get access to form elements
     const companyName = document.getElementById('company-name').value.trim();
     const acctMngrId = document.getElementById('account-manager-dropdown').value;
-
     //ensure all fields are filled out
     if(!companyName || acctMngrId === 'Select an account manager' ) {
         Swal.fire({
@@ -51,7 +73,6 @@ const handleAddCustomer = async () => {
                     'Content-Type': 'application/json',
                 },
             });
-
             if (response.ok) {
                 await Swal.fire({
                     title: 'Success!',
@@ -61,10 +82,9 @@ const handleAddCustomer = async () => {
                     customClass: {
                       popup: 'custom-confirm-popup',
                       confirmButton: 'custom-confirm-button'
-                    } 
-                }); 
+                    }
+                });
                 await document.location.replace('/customers');
-
             } else {
                 throw new Error('Failed to create customer');
             }
@@ -81,20 +101,18 @@ const handleAddCustomer = async () => {
             });
         }
     }
-}; 
-
+};
 //function to handle editing customer data
 const handleEditCustomer = async (event) => {
     event.preventDefault();
-    //get access to data attribute of submit button for req.param
-    const submit = document.querySelector('.submit-edit-btn');
-    const id = submit.getAttribute('data-id');
-    //access to form elements
-    const companyName = document.getElementById('edit-company-name').value.trim();
-    const acctMngrId = document.getElementById('edit-account-manager-dropdown').value;
-    
+        //get access to data attribute of confirm button for req.param
+    const id = event.target.getAttribute('data-id');
+       //access to form elements
+    const { nameInput, accountInput } = getAccess(id);
+    const companyName = nameInput.value.trim();
+    const acctMngrId = accountInput.value;
     //verify elements are properly filled out
-    if(!companyName || acctMngrId === 'Select an account manager' ) {
+    if(!companyName || !acctMngrId ) {
         Swal.fire({
             title: 'Error!',
             text: 'Please fill out company name and select an account manager',
@@ -126,11 +144,10 @@ const handleEditCustomer = async (event) => {
                     customClass: {
                       popup: 'custom-confirm-popup',
                       confirmButton: 'custom-confirm-button'
-                    } 
-                }); 
+                    }
+                });
                 //refresh the page
                 await document.location.replace('/customers');
-
             } else {
                 throw new Error('Failed to create customer');
             }
@@ -149,7 +166,6 @@ const handleEditCustomer = async (event) => {
         }
     }
 };
-
 //function to delete customer
 const handleDelete = async (id) => {
     console.log(id);
@@ -171,7 +187,6 @@ const handleDelete = async (id) => {
                     const response = await fetch(`/api/customers/${id}`, {
                         method: 'DELETE',
                     });
-
                     //if response is ok, show confirmation alert
                     if (response.ok) {
                         await Swal.fire({
@@ -183,8 +198,8 @@ const handleDelete = async (id) => {
                                 popup: 'custom-confirm-popup',
                                 confirmButton: 'custom-confirm-button'
                             }
-                        });  
-                        document.location.replace('/customers');                   
+                        });
+                        document.location.replace('/customers');
                     } else {
                         await Swal.fire({
                             title: 'Error',
@@ -210,14 +225,9 @@ const handleDelete = async (id) => {
                     });
                 }
             }
-        });     
+        });
     }
 };
-
-
-
-
-
 //event listener for delete buttons
 document
     .querySelector('.customer-area')
@@ -229,24 +239,18 @@ document
             handleDelete(btnId);
         }
     });
-
+//event listener for confirm edit buttons
+document.querySelectorAll('.confirm-btn').forEach(button => {
+    button.addEventListener('click', handleEditCustomer);
+})
 //event listener for edit buttons
-document
-    .querySelector('.customer-area')
-    .addEventListener('click', function(event) {
-        // event.preventDefault();
-        if (event.target.classList.contains('edit-btn')) {
-            const btn = event.target;
-            const btnId = btn.getAttribute('data-id');
-            toggleEditForm(btnId);
-        }
-    });
-
-//event listener for edit form submit button
-document
-    .querySelector('.submit-edit-btn')
-    .addEventListener('click', handleEditCustomer);
-
+document.querySelectorAll('.edit-btn').forEach(button => {
+    button.addEventListener('click', enableEditForm);
+  });
+//event listener for cancel buttons
+document.querySelectorAll('.cancel-btn').forEach(button => {
+    button.addEventListener('click', handleCancel);
+})
 //submit button event listener to handle add customer
 document
     .querySelector('.submit-div')
@@ -256,7 +260,6 @@ document
             handleAddCustomer();
         }
     });
-
 //submit button event listener to toggle add customer form
 document
     .querySelector('.add-cus-btn')
