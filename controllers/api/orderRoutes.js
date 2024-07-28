@@ -1,8 +1,6 @@
 const router = require('express').Router();
 const {Order, Product, OrderProduct} = require('../../models/');
 
-
-
 // Make order Route
 // -------------------------------------------------------------------------------------
 router.post('/make-order', async (req, res) => {
@@ -57,10 +55,7 @@ router.post('/make-order', async (req, res) => {
     res.status(500).json({ message: 'Failed to create order' });
   }
 });
-
-
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 //route to close an order
 router.put('/:id', async (req, res) => {
  
@@ -83,7 +78,7 @@ router.put('/:id', async (req, res) => {
     }
     order.isFulfilled = true;
  
-
+    //iterate through all products on order and subtract the required stock from each
     for (const product of order.products) {
       const orderProduct = product.orderProduct;
       if (orderProduct) {
@@ -104,6 +99,25 @@ router.put('/:id', async (req, res) => {
   } catch (error) {
     console.error('Error closing order and updating stock', error);
     res.status(500).json({ error: 'Failed to close order and update stock'});
+  }
+});
+
+//route to delete an order
+router.delete('/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const deletedOrder = await Order.destroy({
+      where: { id: id },
+    });
+
+    if (!deletedOrder) {
+      res.status(404).json({ message: `No order found with ID ${id}.` });
+      return;
+    }
+    res.status(200).json({ message: 'Order deleted successfully.' });
+  } catch (error) {
+    res.status(500).json(error);
   }
 });
 

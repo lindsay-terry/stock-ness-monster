@@ -87,6 +87,68 @@ const closeOrder = async (id) => {
   }
 }
 
+// function to handle deleting an order
+const handleDeleteOrder = async (event) => {
+    const id = event.target.getAttribute('data-id');
+    //check for id.  If none, throw error message
+    if (!id) {
+      Swal.fire({
+        title: 'Error!',
+        text: 'No order found with that ID',
+        icon: 'error',
+        confirmButtonText: 'Okay',
+        customClass: {
+          popup: 'custom-error-popup',
+          confirmButton: 'bg-warning',
+        }
+      })
+    } else {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'This cannot be undone.  Proceed?',
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Delete Order',
+        customClass: {
+          popup: 'custom-confirm-popup',
+          confirmButton: 'custom-confirm-button'
+        }
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            const response = await fetch(`/api/orders/${id}`, {
+              method: 'DELETE',
+            });
+
+            if (response.ok) {
+              Swal.fire({
+                title: 'Deleted!',
+                text: `Order ID ${id} has been deleted.  No inventory has been removed.`,
+                icon: 'success',
+                customClass: {
+                  popup: 'custom-confirm-popup',
+                  confirmButton: 'custom-confirm-button'
+                }
+              }).then(() => {
+                document.location.replace('/orders');
+              });
+            } else {
+              throw new Error('Failed to delete order');
+            }
+          } catch (error) {
+            Swal.fire({
+              title: 'Error!',
+              text: error.message,
+              icon: 'error',
+              customButtonText: 'Okay',
+            });
+          }
+        }
+      });
+    }
+};
+
 //event listener for close order button
 document
   .querySelector('.open-orders-div')
@@ -107,35 +169,30 @@ document
   .querySelector('.view-closed')
   .addEventListener('click', toggleClosedOrders)
 
+//event listener for delete order button
+document
+  .querySelectorAll('.delete-order').forEach(button => {
+    button.addEventListener('click', handleDeleteOrder);
+  })
 
 // check product availability and make new order
 // ----------------------------------------------------------------------------------------------------
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  const availabilityMainContainer = document.querySelector('.availability-container');//
-  const availabilityFormEl = document.getElementById('available-form');//
-
-  const productInputEl = document.getElementById('product');//
-
-  const quantityInputEl = document.getElementById('quantity');//
-  const availabilityBtn = document.getElementById('checkAvailability');//
-  
-  const placeOrderMainContainer = document.querySelector('.place-order-main-container');//
-  const placeOrderFormRl = document.querySelector('.order-form');//
-  const ordersContainerEl = document.querySelector('orders-container');//
-  
-  const orderFormEl = document.getElementById('orderForm');//
+  const availabilityMainContainer = document.querySelector('.availability-container');
+  const availabilityFormEl = document.getElementById('available-form');
+  const productInputEl = document.getElementById('product');
+  const quantityInputEl = document.getElementById('quantity');
+  const availabilityBtn = document.getElementById('checkAvailability');
+  const placeOrderMainContainer = document.querySelector('.place-order-main-container');
+  const orderFormEl = document.getElementById('orderForm');
   const companyNameInput = document.getElementById('companyName');
-  const orderProductInput = document.getElementById('orderProduct');
-  const orderQuantityInput = document.getElementById('orderQuantity');
-  const makeOrderbtn = document.getElementById('makeOrder');//
-  // const goBackAvailability = document.getElementById('goBackAvailability');
+  const makeOrderbtn = document.getElementById('makeOrder');
 
   //globally creating message div 
   const messageContainer = document.createElement('div');
   messageContainer.setAttribute('class', 'message-container');
-
   const message = document.createElement('p');
   message.setAttribute('class', 'message');
   messageContainer.appendChild(message);
@@ -350,27 +407,4 @@ const handleOrderSubmit = async (event) => {
 
 orderFormEl.addEventListener('submit', handleOrderSubmit);
 
-
-
-
-
-
- // GO BACK TO AVAILABILITY CHECK IF USER WANTS TO
-//  -----------------------------------------------------------------
-
-  // const goBack = (event) => {
-  //   try {
-  //     event.preventDefault();
-  //     availabilityMainContainer.setAttribute('style', 'display: flex');
-  //     availabilityFormEl.setAttribute('style', 'display: flex');
-  //     placeOrderMainContainer.setAttribute('style', 'display: none');
-  //     orderFormEl.setAttribute('style', 'display: none');
-  //   } catch (error) {
-  //     console.error('Error:', error);
-  //   }
-  // };
-
-  // goBackAvailability.addEventListener('click', goBack);
-
 });
-
