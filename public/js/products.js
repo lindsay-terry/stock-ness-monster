@@ -1,8 +1,3 @@
-const toggleProductForm = () => {
-  const toggleDisplay = document.querySelector('#add-product-form');
-  toggleDisplay.classList.toggle('d-none');
-};
-
 const addProduct = async (event) => {
   event.preventDefault();
 
@@ -169,8 +164,7 @@ const deleteProduct = async (event) => {
 };
 
 document
-    .querySelector('.add-product')
-    .addEventListener('click', addProduct);
+    .querySelector('.add-product')?.addEventListener('click', addProduct);
 
 document.querySelectorAll('.edit-product').forEach(button => {
   button.addEventListener('click', enableEditProduct);
