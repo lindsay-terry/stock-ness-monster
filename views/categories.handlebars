@@ -1,55 +1,18 @@
-<div class="d-grid gap-2 col-6 mx-auto">
-  <button class="btn btn-warning" type="button" id="all-categories">All Categories</button>
-  <div class="input-group mb-3">
-    <input type="number" class="form-control" placeholder="Enter Category ID" id="category-id-input" aria-label="Category ID">
-    <button class="btn btn-warning" type="button" id="category-by-id">Category By Id</button>
-  </div>
-
-  <button class="btn btn-warning" type="button" id="add-category">Add Category</button>
-  <form id="category-form" class="d-none">
-    <div class="form-group">
-      <label for="category-category">Category</label>
-      <select class="custom-select" id="category-category">
-      <option selected>Select Category</option>
-        {{#each categories}}
-          <option value="{{id}}">{{name}}</option>
-        {{/each}}
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="category-name">Name</label>
-      <input type="text" class="form-control" id="category-name" placeholder="Enter category name">
-    </div>
-    <button type="submit" class="btn btn-warning" id="category-submit">Submit</button>
-  </form>
+{{!-- title of page --}}
+<div class="d-flex justify-content-center">
+  <h1 class="m-4">Categories</h1>
 </div>
 
-{{#each categories}}
-  <div class="container mt-5">
-      <div class="card">
-          <div class="card-header">
-              <h3>{{name}}</h3>
-          </div>
-          <div class="card-body">
-              <p class="card-text"><strong>ID:</strong> {{id}}</p>
-              <button type="button" class="btn btn-danger delete-category" data-id="{{id}}">Delete</button>        
-          </div>
-      </div>
+{{!-- all categories display --}}
+<div class="pc-main container d-flex">
+  <div class="pc-display-container d-flex flex-column gap-4 col-6">
+    {{> add-category }}
+    {{> categories-display }}
   </div>
-{{/each}}
-
-{{#if category}}
-  <div class="container mt-5">
-      <div class="card">
-          <div class="card-header">
-              <h3>{{category.name}}</h3>
-          </div>
-          <div class="card-body">
-              <p class="card-text"><strong>ID:</strong> {{category.id}}</p>
-              <button type="button" class="btn btn-danger delete-category" data-id="{{category.id}}">Delete</button>        
-          </div>
-      </div>
-  </div>
-{{/if}}  
+  <figure class="pc-image-container col-6">
+      <img class="img-fluid custom-image" src="/images/swamp.png" alt="Green pixelated swamp with creature">
+  </figure>
+</div>
 
 <script src="/js/categories.js"></script>
+<script src="/js/products.js"></script>

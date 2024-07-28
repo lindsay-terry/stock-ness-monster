@@ -1,65 +1,7 @@
-const getAllCategories = async (event) => {
-  try {
-    const response = await fetch(`/api/categories`, {
-      method: 'GET'
-    });
-    
-    if (response.ok) {
-      document.location.replace('/api/categories');
-    } else {
-      throw new Error('Failed to GET categories');
-    }
-  } catch (error) {
-    Swal.fire({
-      title: 'Error!',
-      text: error.message,
-      icon: 'error',
-      confirmButtonText: 'Okay'
-    });
-  }
-};
-
-const categoryById = async () => {
-  const id = document.querySelector('#category-id-input').value;
-  console.log(id)
-  if (!id) {
-    Swal.fire({
-      title: 'Error!',
-      text: 'Please enter a category ID',
-      icon: 'error',
-      confirmButtonText: 'Okay'
-    });
-    return;
-  }
-  try {
-    const response = await fetch(`/api/categories/${id}`, {
-      method: 'GET'
-    });
-    
-    if (response.ok) {
-      document.location.replace(`/api/categories/${id}`);
-    } else {
-      throw new Error('Failed to GET category by id');
-    }
-  } catch (error) {
-    Swal.fire({
-      title: 'Error!',
-      text: error.message,
-      icon: 'error',
-      confirmButtonText: 'Okay'
-    });
-  }
-};
-
-const displayCategoryForm = () => {
-  const toggleDisplay = document.querySelector('#category-form');
-  toggleDisplay.classList.toggle('d-none');
-};
-
 const addCategory = async (event) => {
   event.preventDefault();
 
-  const name = document.querySelector('#category-name').value.trim();
+  const name = document.getElementById('add-category-name').value.trim();
 
   if (name) {
     try {
@@ -98,8 +40,67 @@ const addCategory = async (event) => {
   }
 };
 
+const enableEditCategory = async (event) => {
+  const id = event.target.getAttribute('data-id');
+  document.getElementById(`category-name-${id}`).disabled = false;
+
+  document.querySelector(`.edit-category[data-id="${id}"]`).classList.add('d-none');
+  document.querySelector(`.delete-category[data-id="${id}"]`).classList.add('d-none');
+  document.querySelector(`.save-category[data-id="${id}"]`).classList.remove('d-none');
+  document.querySelector(`.cancel-category[data-id="${id}"]`).classList.remove('d-none');
+}
+
+const cancelEditCategory = async (event) => {
+  const id = event.target.getAttribute('data-id');
+  document.getElementById(`category-name-${id}`).disabled = true;
+
+  document.querySelector(`.edit-category[data-id="${id}"]`).classList.remove('d-none');
+  document.querySelector(`.delete-category[data-id="${id}"]`).classList.remove('d-none');
+  document.querySelector(`.save-category[data-id="${id}"]`).classList.add('d-none');
+  document.querySelector(`.cancel-category[data-id="${id}"]`).classList.add('d-none');
+}
+
+const editCategory = async (event) => {
+  const id = event.target.getAttribute('data-id');
+  const editName = document.getElementById(`category-name-${id}`).value.trim();
+  if (editName) {
+    try {
+      const response = await fetch(`/api/categories/${id}`, { 
+        method: 'PUT',
+        body: JSON.stringify({ name: editName }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        await Swal.fire({
+          title: 'Success!',
+          text: `Edited category ${id}.`,
+          icon: 'success',
+          confirmButtonText: 'Okay',
+          customClass: {
+            popup: 'custom-confirm-popup',
+            confirmButton: 'custom-confirm-button'
+          }
+        }).then(() => {
+          document.location.replace('/categories');
+        });
+      } else {
+        throw new Error('Failed to edit category');
+      }
+    } catch (error) {
+      Swal.fire({
+        title: 'Error!',
+        text: error.message,
+        icon: 'error',
+        confirmButtonText: 'Okay'
+      });
+    }
+  }; 
+};
+
 const deleteCategory = async (event) => {
-  console.log('in delete function')
   if (event.target.classList.contains('delete-category')) {
     const id = event.target.getAttribute('data-id');
 
@@ -150,20 +151,19 @@ const deleteCategory = async (event) => {
   }
 };
 
-// document
-//     .querySelector('#all-categories')
-//     .addEventListener('click', getAllCategories);
+document
+    .querySelector('.add-category')?.addEventListener('click', addCategory);
 
-// document
-//     .querySelector('#category-by-id')
-//     .addEventListener('click', categoryById);
+document.querySelectorAll('.edit-category').forEach(button => {
+  button.addEventListener('click', enableEditCategory);
+});
 
-// document
-//     .querySelector('#add-category')
-//     .addEventListener('click', displayCategoryForm);
+document.querySelectorAll('.cancel-category').forEach(button => {
+  button.addEventListener('click', cancelEditCategory);
+});
 
-// document
-//     .querySelector('#category-submit')
-//     .addEventListener('click', addCategory);
+document.querySelectorAll('.save-category').forEach(button => {
+  button.addEventListener('click', editCategory);
+});
 
-// document.addEventListener('click', deleteCategory);
+document.addEventListener('click', deleteCategory);
