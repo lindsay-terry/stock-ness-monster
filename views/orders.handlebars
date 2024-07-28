@@ -14,29 +14,26 @@
                   <button class="btn btn-warning view-closed">Toggle closed orders</button>
                   <button class="btn btn-warning order-toggle">Create an order</button>
                 </div>
-                <h3 class="m-2">Open Orders:</h3>
-                <div class="row open-orders-div gap-2 m-4">
+                <h3 class="mt-2">Open Orders:</h3>
+                <div class="row open-orders-div gap-2 m-2">
                    {{#each orderData}} 
                       {{#unless this.isFulfilled}}
                     <div class="card text-white bg-success mb-3" style="width: 18rem;">
                       <div class="card-header bold">{{customer.company_name}}</div>
-                      <div class="card-body align-items-end">
-                        <ul>
+                      <div class="card-body d-flex flex-column flex-grow-1">
+                        <ul class="">
                         {{#each products}}
                         <li>
                         <h5 class="card-title">
                              {{this.item_name}} - {{orderProduct.quantity}}
                         </h5>
                         </li>
-                        
                           <p class="m-1 text-center font-weight-light"><em>Available stock: {{this.stock}}</em></p>
-                        
-                        {{!-- <p>Quantity available:</p> {{this.stock}} --}}
                         {{/each}}
                         </ul>
-                        <div class="">
+                        <div class="mt-auto mx-auto">
                           <button class="btn btn-sm btn-warning close-order" data-id="{{id}}">Close Order</button>
-                          {{!-- <button class="btn btn-sm btn-danger delete-order" data-id="{{id}}">Delete Order</button> --}}
+                          <button class="btn btn-sm btn-danger delete-order" data-id="{{id}}">Delete Order</button>
                         </div>
 
                       </div>
@@ -102,7 +99,6 @@
                 </form>
               </div>
             </div>
-
               <!-- FORM TO PLACE ORDER -->
                 {{!-- -------------------------------------------------------------------------------------------- --}}
               <!-- FORM TO PLACE ORDER -->
@@ -110,7 +106,6 @@
               <div>
                 <h2 class="m-2">Place Your Order</h2>
                 <form id="orderForm" class="mt-2 order-form">
-
                   <div class="form-group">
                     <label for="companyName">Company:</label>
                       <select class="form-select" aria-label="select-company" id="companyName">
@@ -121,26 +116,13 @@
                         {{/each}}
                     </select>
                   </div>
-
                   <div class="m-3">
                     <ul class="display-order-list">
                       {{!-- empty section to render order choices --}}
                     </ul>
                   </div>
-
                   <div class="button-group">
-                    {{!-- <button type="button" id="go-back-availability" class="btn btn-primary">Back</button> --}}
-                    {{!-- <div class="icon-container">
-                      <i class="fa-solid fa-angles-left"></i>
-                    </div> --}}
-
                     <button type="submit" id="placeOrder" class="btn btn-primary">Place order</button>
-                    {{!-- for future development --}}
-                    {{!-- <div class="icon-container">
-                      <i class="fa-solid fa-angles-right nextTorder"></i>
-                    </div> --}}
-
-                    {{!-- <button type="submit" id="makeOrder" class="btn btn-primary availability disabled">Payment</button> --}}
                   </div>
                 </form>
               </div>
