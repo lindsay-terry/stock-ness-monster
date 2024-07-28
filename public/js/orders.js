@@ -60,7 +60,7 @@ const closeOrder = async (id) => {
           } else {
             await Swal.fire({
               title: 'Error',
-              text: "There's been an error closing the order, please try again.",
+              text: "Cannot close order: insufficient stock.  Please replenish",
               icon: 'error',
               confirmButtonText: 'Okay',
               customClass: {
@@ -68,6 +68,7 @@ const closeOrder = async (id) => {
                 confirmButton: 'custom-confirm-button'
               }
             });
+            return;
           }
         } catch (error) {
           Swal.fire({
@@ -112,39 +113,33 @@ document
 
 document.addEventListener('DOMContentLoaded', () => {
 
-const availableProducts = [
-    "Keyboard",
-    "Mouse",
-    "Clothes",
-    "Laptop",
-    "Computer",
-    "Car"
-  ];
+  const availabilityMainContainer = document.querySelector('.availability-container');//
+  const availabilityFormEl = document.getElementById('available-form');//
 
-  // Initialize the autocomplete widget
-  $("#product").autocomplete({
-    source: availableProducts
-  });
+  const productInputEl = document.getElementById('product');//
 
+  const quantityInputEl = document.getElementById('quantity');//
+  const availabilityBtn = document.getElementById('checkAvailability');//
   
-  const availabilityMainContainer = document.querySelector('.availability-container');
-  const availabilityFormEl = document.getElementById('available-form');
-  const productInputEl = document.getElementById('product');
-  const quantityInputEl = document.getElementById('quantity');
-  const availabilityBtn = document.getElementById('checkAvailability');
+  const placeOrderMainContainer = document.querySelector('.place-order-main-container');//
+  const placeOrderFormRl = document.querySelector('.order-form');//
+  const ordersContainerEl = document.querySelector('orders-container');//
   
-  const placeOrderMainContainer = document.querySelector('.place-order-main-container');
-  const placeOrderFormRl = document.querySelector('.order-form');
-  const ordersContainerEl = document.querySelector('orders-container');
-  
-  const orderFormEl = document.getElementById('orderForm');
+  const orderFormEl = document.getElementById('orderForm');//
   const companyNameInput = document.getElementById('companyName');
   const orderProductInput = document.getElementById('orderProduct');
   const orderQuantityInput = document.getElementById('orderQuantity');
-  const makeOrderbtn = document.getElementById('makeOrder');
-  const goBackAvailability = document.getElementById('goBackAvailability');
+  const makeOrderbtn = document.getElementById('makeOrder');//
+  // const goBackAvailability = document.getElementById('goBackAvailability');
 
-  
+  //globally creating message div 
+  const messageContainer = document.createElement('div');
+  messageContainer.setAttribute('class', 'message-container');
+
+  const message = document.createElement('p');
+  message.setAttribute('class', 'message');
+  messageContainer.appendChild(message);
+  availabilityFormEl.appendChild(messageContainer);
 
 
   // CHECK AVAILABILITY
@@ -153,135 +148,147 @@ const availableProducts = [
   const isAvailable = async (event) => {
     try {
       event.preventDefault();
-      const product = productInputEl.value.trim();
+      const productID = productInputEl.value;
+      console.log(productID);
       const quantity = parseInt(quantityInputEl.value.trim(), 10);
 
-      if (product && quantity > 0) {
-        const response = await fetch('/api/availability/check-availability', {
-          method: 'POST',
-          body: JSON.stringify({ product, quantity }),
-          headers: { 'Content-Type': 'application/json' },
+      if (productID && quantity > 0) {
+        const response = await fetch(`/api/availability/${productID}`, {
+          method: 'GET',
         });
 
-        // Clear previous messages
-        const existingMessage = document.querySelector('.message-container');
-        if (existingMessage) {
-          existingMessage.remove();
-        }
-
         if (response.ok) {
+          //result should only be stock of specified product
           const data = await response.json();
-          const messageContainer = document.createElement('div');
-          messageContainer.setAttribute('class', 'message-container');
 
-          const message = document.createElement('p');
-          message.setAttribute('class', 'message');
-
-          if (data.available) {
-            message.innerHTML = 'The product you are looking for is available in our stock. Please proceed to make an order.';
-            makeOrderbtn.classList.remove('disabled');
-            makeOrderbtn.disabled = false;
+          //checks stock of product against user input quantity
+          if (data >= quantity) {
+            document.querySelector('#add-to-order').classList.remove('disabled');
+            message.textContent = 'Available'
           } else {
-            makeOrderbtn.disabled = true;
-            message.innerHTML = data.message || 'Sorry, there was an issue.';
+            makeOrderbtn.disabled = false;
+            Swal.fire({
+              title: 'Warning!',
+              text: 'Insufficient stock, replenish before closing order.',
+              icon: 'warning',
+              confirmButtonText: 'Okay',
+              customClass: {
+                  popup: 'custom-error-popup',
+                  confirmButton: 'bg-warning'
+              }
+            }).then(async (result) => {
+              if (result.isConfirmed) {
+                document.querySelector('#add-to-order').classList.remove('disabled');
+              }
+            })
           }
-
-          availabilityFormEl.appendChild(messageContainer);
-          messageContainer.appendChild(message);
         } else {
-          const messageContainer = document.createElement('div');
-          messageContainer.setAttribute('class', 'message-container');
-
-          const message = document.createElement('p');
-          message.setAttribute('class', 'message');
-          makeOrderbtn.disabled = true;
-          message.innerHTML = `This product is not available in our stock or Please check the spelling and try again: ${response.status} - ${response.statusText}`;
-
-          availabilityFormEl.appendChild(messageContainer);
-          messageContainer.appendChild(message);
+            Swal.fire({
+              title: 'Warning!',
+              text: 'Product does not exist',
+              icon: 'warning',
+              confirmButtonText: 'Okay',
+              customClass: {
+                  popup: 'custom-error-popup',
+                  confirmButton: 'bg-warning'
+              }
+            })
         };
 
       } else {
-          // Clear previous messages 2
-         const existingMessage2 = document.querySelector('.message-container');
-        if (existingMessage2) {
-          existingMessage2.remove();
-        }
-        const messageContainer = document.createElement('div');
-        messageContainer.setAttribute('class', 'message-container');
-        makeOrderbtn.disabled = true;
-
-        const message = document.createElement('p');
-        message.setAttribute('class', 'message');
-        message.innerHTML = 'Please fill out both the product and quantity fields correctly.';
-
-        availabilityFormEl.appendChild(messageContainer);
-        messageContainer.appendChild(message);
+        Swal.fire({
+          title: 'Error',
+          text: 'Please continue filling out form',
+          icon: 'error',
+          confirmButtonText: 'Okay',
+          customClass: {
+              popup: 'custom-error-popup',
+              confirmButton: 'bg-warning'
+          }
+        })
       }
     } catch (error) {
-      console.error('Error:', error);
-      const messageContainer = document.createElement('div');
-      messageContainer.setAttribute('class', 'message-container');
-
-      const message = document.createElement('p');
-      message.setAttribute('class', 'message');
-      makeOrderbtn.disabled = true;
-      message.innerHTML = 'An error occurred while checking availability.';
-
-      availabilityFormEl.appendChild(messageContainer);
-      messageContainer.appendChild(message);
+      Swal.fire({
+        title: 'Error!',
+        text: error.message,
+        icon: 'error',
+        confirmButtonText: 'Okay',
+        customClass: {
+            popup: 'custom-error-popup',
+            confirmButton: 'bg-warning'
+        }
+      })
     }
     
   };
 
-  availabilityBtn.addEventListener('click', isAvailable);
+//temporary array to hold order data
+const holdOrder = [];
+ 
+//event listeners to check availability and add items to order
+availabilityBtn.addEventListener('click', isAvailable);
 
+document
+  .getElementById('add-to-order')
+  .addEventListener('click', async function(event) {
+      event.preventDefault();
+      let order = {
+        product_id: productInputEl.value,
+        item_name: document.getElementById(`option${productInputEl.value}`).getAttribute('data-name'),
+        quantity: quantityInputEl.value,
+      }
 
+      await holdOrder.push(order);
+      message.innerHTML = 'Continue to add items or proceed to make an order'
+      document.getElementById('makeOrder').classList.remove('disabled');
+      availabilityFormEl.reset();
+      console.log(holdOrder);
+})
+
+//event listener to trigger place order sequence
+document 
+  .getElementById('makeOrder')
+  .addEventListener('click', function (event) {
+      event.preventDefault();
+      console.log(holdOrder);
+      placeOrder();
+  })
 
 // PLACE AN ORDER
 // ---------------------------------------------------------
 
-const placeOrder = (event) => {
-    try {
-      event.preventDefault();
+const placeOrder = () => {
       availabilityMainContainer.style.display = 'none';
       availabilityFormEl.style.display = 'none';
       placeOrderMainContainer.style.display = 'flex';
       orderFormEl.style.display = 'flex';
 
-      const product = productInputEl.value.trim();
-      const quantity = parseInt(quantityInputEl.value.trim(), 10);
-      if (product && quantity > 0) {
-        if (orderProductInput && orderQuantityInput) {
-          orderProductInput.value = product;
-          orderQuantityInput.value = quantity;
-          orderProductInput.style.fontStyle = 'italic';
-          orderQuantityInput.style.fontStyle = 'italic';
-
-           orderProductInput.style.fontWeight = 'bold';
-          orderQuantityInput.style.fontWeight = 'bold';
-        } else {
-          console.error('Order form inputs not found.');
-        }
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
+      //display customer selections for verification before adding to database
+      holdOrder.forEach((item) => {
+        const list = document.createElement('li');
+        list.textContent = `${item.item_name} - ${item.quantity}`
+        document.querySelector('.display-order-list').appendChild(list);
+      }); 
   };
-
-makeOrderbtn.addEventListener('click', placeOrder);
 
 // SUBMIT THE ORDER TO THE SERVER
 // ---------------------------------------------------------------
 const handleOrderSubmit = async (event) => {
+  event.preventDefault();
+  console.log(holdOrder);
   try {
-    event.preventDefault();
+    const company = companyNameInput.value;
+    console.log(company);
+    const productOrder = holdOrder.map(item => item.product_id);
+    const quantityOrder = holdOrder.map(item => parseInt(item.quantity, 10));
 
-    const company = companyNameInput.value.trim();
-    const productOrder = orderProductInput.value.trim();
-    const quantityOrder = parseInt(orderQuantityInput.value.trim(), 10);
-
-    if (company && productOrder && quantityOrder > 0) {
+   
+    if (
+      company !== 'Select company' &&
+      Array.isArray(productOrder) && productOrder.length > 0 &&
+      Array.isArray(quantityOrder) && quantityOrder.length > 0 &&
+      quantityOrder.every(quantity => !isNaN(quantity) && quantity > 0)
+    ) {
       const response = await fetch('/api/orders/make-order', {
         method: 'POST',
         body: JSON.stringify({ company, productOrder, quantityOrder }),
@@ -289,17 +296,55 @@ const handleOrderSubmit = async (event) => {
       });
 
       if (response.ok) {
-        console.log('Order submitted successfully.');
-        // Add any additional success handling logic here
+        await Swal.fire({
+            title: 'Success',
+            text: 'The order has been created!',
+            icon: 'success',
+            confirmButtonText: 'Okay',
+            customClass: {
+              popup: 'custom-confirm-popup',
+              confirmButton: 'custom-confirm-button'
+            }
+        })
+        //refresh the page
+        document.location.replace('/orders');
       } else {
-        const errorData = await response.json();
-        console.error('Error submitting the order:', errorData.message);
+        Swal.fire({
+          title: 'Error!',
+          text: 'Error creating order',
+          icon: 'error',
+          confirmButtonText: 'Okay',
+          customClass: {
+              popup: 'custom-error-popup',
+              confirmButton: 'bg-warning'
+          }
+        })
+        return;
       }
     } else {
-      console.error('Order form is not completely filled out.');
+      Swal.fire({
+        title: 'Error!',
+        text: 'Order form is not completely filled out',
+        icon: 'error',
+        confirmButtonText: 'Okay',
+        customClass: {
+            popup: 'custom-error-popup',
+            confirmButton: 'bg-warning'
+        }
+      })
+      return;
     }
   } catch (error) {
-    console.error('Error occurred while submitting the order:', error);
+    Swal.fire({
+      title: 'Error!',
+      text: error.message,
+      icon: 'error',
+      confirmButtonText: 'Okay',
+      customClass: {
+          popup: 'custom-error-popup',
+          confirmButton: 'bg-warning'
+      }
+    })
   }
 };
 
@@ -313,22 +358,19 @@ orderFormEl.addEventListener('submit', handleOrderSubmit);
  // GO BACK TO AVAILABILITY CHECK IF USER WANTS TO
 //  -----------------------------------------------------------------
 
-  const goBack = (event) => {
-    try {
-      event.preventDefault();
-      availabilityMainContainer.setAttribute('style', 'display: flex');
-      availabilityFormEl.setAttribute('style', 'display: flex');
-      placeOrderMainContainer.setAttribute('style', 'display: none');
-      orderFormEl.setAttribute('style', 'display: none');
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
+  // const goBack = (event) => {
+  //   try {
+  //     event.preventDefault();
+  //     availabilityMainContainer.setAttribute('style', 'display: flex');
+  //     availabilityFormEl.setAttribute('style', 'display: flex');
+  //     placeOrderMainContainer.setAttribute('style', 'display: none');
+  //     orderFormEl.setAttribute('style', 'display: none');
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //   }
+  // };
 
-  goBackAvailability.addEventListener('click', goBack);
+  // goBackAvailability.addEventListener('click', goBack);
 
 });
-
-
-
 

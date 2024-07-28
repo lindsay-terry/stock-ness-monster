@@ -1,143 +1,129 @@
 :root {
-    --tea-green: #D0EEBEff;
-    --pistachio: #86C06Cff;
-    --dark-green: #173531ff;
-    --rich-black: #071821ff;
-    --hunter-green: #306850ff;
-    --error: rgb(243, 69, 69);
+  --tea-green: #D0EEBEff;
+  --pistachio: #86C06Cff;
+  --dark-green: #173531ff;
+  --rich-black: #071821ff;
+  --hunter-green: #306850ff;
+  --error: rgb(243, 69, 69);
 }
 
 body {
-    background-color: var(--hunter-green);
-    color: var(--tea-green);
-    font-family: Quicksand, sans-serif;
-    font-size: 120%;
-    
+  background-color: var(--hunter-green);
+  color: var(--tea-green);
+  font-family: Quicksand, sans-serif;
+  font-size: 120%;
+  
 }
 
 h1 {
-    font-family: Creepster, sans-serif;
-    font-size: 70px;
-    color: var(--tea-green);
-    text-shadow: 5px 5px var(--dark-green);
+  font-family: Creepster, sans-serif;
+  font-size: 70px;
+  color: var(--tea-green);
+  text-shadow: 5px 5px var(--dark-green);
 }
 
 .custom-navbar {
-    background-color: var(--hunter-green);
+  background-color: var(--hunter-green);
 }
 
 /* Custom class for SweetAlert background */
 .custom-confirm-popup {
-  background-color: var(--hunter-green);
-  color: var(--tea-green);
+background-color: var(--hunter-green);
+color: var(--tea-green);
 }
 
 .custom-error-popup {
-  background-color: var(--error);
-  color: var(--rich-black);
+background-color: var(--error);
+color: var(--rich-black);
 }
 
 /* Custom class for SweetAlert confirm button */
 .custom-confirm-button {
-  background-color: var(--pistachio);
-  color: var(--dark-green);
+background-color: var(--pistachio);
+color: var(--dark-green);
 }
 
 /* styling for modals  */
 .modal-style {
-  background-color: var(--rich-black);
+background-color: var(--rich-black);
 }
 
 /* text color for create a user form  */
 #user-form {
-  color: var(--pistachio);
+color: var(--pistachio);
 }
 
 /* ORDERS */
 
 .availability-container {
-  width: 100%;
-  height: 40vh;
-  background-color: var(--dark-green);
-  opacity: 0.8;
-  box-shadow: 5px 5px 5px var(--pistachio);
-  border-radius: 8px;
-}
-
-.orderTitle {
-  margin-top: 20px;
+background-color: var(--dark-green);
+opacity: 0.8;
+box-shadow: 5px 5px 5px var(--pistachio);
+border-radius: 8px;
 }
 
 .form-control-custom {
-  background-color: white;
-  width: 100%;
-  box-sizing: border-box; 
+background-color: white;
+width: 100%;
+box-sizing: border-box; 
 }
 
 .form-group {
-  margin-top: 1.2rem;
-  width: 100%; 
+margin-top: 1.2rem;
+width: 100%; 
 }
 
 .btn-primary {
-  margin-top: 1.1rem;
-  background-color: #f8cb52;
-  color: black;
+margin-top: 1.1rem;
+background-color: #f8cb52;
+color: black;
 }
 
 .makeOrder {
-  opacity: 0.2; 
-  pointer-events: none; 
+opacity: 0.2; 
+pointer-events: none; 
 }
 
 .button-group {
-  display: flex;
-  gap: 20px; 
-  width: 100%; 
+display: flex;
+gap: 20px; 
+width: 100%; 
 }
 
 .icon-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+display: flex;
+align-items: center;
+justify-content: center;
 }
 
 .nextTorder {
-  font-size: 1.5rem; 
+font-size: 1.5rem; 
 }
 
 .icon-container i {
-  margin-top: 15px;
+margin-top: 15px;
 }
 
 #orderForm {
-
-  display: none;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
-  width: 100%; 
-  
-   
+display: none;
+flex-direction: column;
 }
 
 .place-order-main-container {
-  display: none;
-  height: 60vh;
-  width: 100%;
-  background-color: white;
-  box-shadow: 5px 5px 5px black;
-  justify-content: center;
-  border-radius: 10px;
- 
+display: none;
+background-color: var(--tea-green);
+color: var(--rich-black);
+box-shadow: 5px 5px 5px black;
+justify-content: center;
+border-radius: 10px;
 }
 
 .container {
-  width: 100%;
+width: 100%;
 }
 
 .orderTitle{
-  color: var(--dark-green);
+color: var(--dark-green);
 }
 
 
@@ -145,50 +131,50 @@ h1 {
 /* FOOTER */
 
 .footer {
-      background-color: #f6c244;
-      padding: 20px 0;
-      box-shadow: 5px 5px 2px black;
+    background-color: #f6c244;
+    padding: 20px 0;
+    box-shadow: 5px 5px 2px black;
 
-    }
-    .footer a {
-      color: var(--dark-green);
-       text-decoration: none;
-       font-weight: bold;
-       text-shadow: 1rem;
-    }
+  }
+  .footer a {
+    color: var(--dark-green);
+     text-decoration: none;
+     font-weight: bold;
+     text-shadow: 1rem;
+  }
 
-    .list-inline-item i {
-      font-size: 14px;
-      color: var(--dark-green);
-    }
+  .list-inline-item i {
+    font-size: 14px;
+    color: var(--dark-green);
+  }
 
-    .list-inline{
-      gap: 30px;
-    }
+  .list-inline{
+    gap: 30px;
+  }
 
-    .text-center span{
-      color: black;
+  .text-center span{
+    color: black;
 
-    }
+  }
 
 
 /* Accordion */
 .accordion-button:focus {
-  box-shadow: none;
+box-shadow: none;
 }
 
 /* custom card on homepage */
 .card-custom-header {
-  background-color: var(--rich-black);
-  color: var(--tea-green);
+background-color: var(--rich-black);
+color: var(--tea-green);
 }
 
 .card-custom-body {
-  background-color: var(--dark-green);
-  color: var(--tea-green);
+background-color: var(--dark-green);
+color: var(--tea-green);
 }
 
 /* custom image styling */
 .custom-image {
-  box-shadow: 3px 3px 25px 5px var(--rich-black);
+box-shadow: 3px 3px 25px 5px var(--rich-black);
 }

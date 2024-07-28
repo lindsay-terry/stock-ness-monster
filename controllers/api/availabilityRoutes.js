@@ -2,23 +2,21 @@ const router = require('express').Router();
 const { Product } = require('../../models/');
 
 // Route to check product availability
-router.post('/check-availability', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
-    const { product, quantity } = req.body;
+    const id = req.params.id;
 
     // Query to find the product by name
-    const availableProduct = await Product.findOne({ where: { item_name: product } });
+    const availableProduct = await Product.findByPk(id);
 
     if (availableProduct) {
-      // Check if the requested quantity is available
-      const isAvailable = availableProduct.stock >= quantity;
-      res.json({ available: isAvailable, message: isAvailable ? '' : 'Not enough stock available.' });
+        res.status(200).json(availableProduct.stock);
     } else {
-      res.status(404).json({ available: false, message: 'Product not found.' });
+      res.status(404).json({ message: 'Error fetching product info' });
     }
   } catch (error) {
     console.error('Error checking product availability:', error);
-    res.status(500).json({ available: false, message: 'Server error' });
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
