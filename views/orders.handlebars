@@ -10,12 +10,12 @@
 
         <div class="col-md-6 col-sm-12">
           <div class="d-flex flex-column">
-                <div>
+                <div class="d-flex justify-content-evenly">
                   <button class="btn btn-warning view-closed">Toggle closed orders</button>
                   <button class="btn btn-warning order-toggle">Create an order</button>
                 </div>
                 <h3 class="m-2">Open Orders:</h3>
-                <div class="row open-orders-div m-4">
+                <div class="row open-orders-div gap-2 m-4">
                    {{#each orderData}} 
                       {{#unless this.isFulfilled}}
                     <div class="card text-white bg-success mb-3" style="width: 18rem;">
@@ -35,8 +35,8 @@
                         {{/each}}
                         </ul>
                         <div class="">
-                          <button class="btn btn-warning close-order" data-id="{{id}}">Close Order</button>
-                          <button class="btn btn-warning edit-order" data-id="{{id}}">Edit Order</button>
+                          <button class="btn btn-sm btn-warning close-order" data-id="{{id}}">Close Order</button>
+                          {{!-- <button class="btn btn-sm btn-danger delete-order" data-id="{{id}}">Delete Order</button> --}}
                         </div>
 
                       </div>
@@ -47,7 +47,7 @@
 
                 <div id="closed-order-div" style="display: none">
                   <h3 class="m-2">Closed Orders:</h3>
-                <div class="m-4">
+                <div class="m-4 gap-2 row">
                    {{#each orderData}}
                       {{#if this.isFulfilled}}
                     <div class="card text-white bg-secondary mb-3" style="width: 16rem;">
@@ -60,95 +60,93 @@
                         </li>
                         {{/each}}
                         </ul>
-                        
-                        {{!-- <button class="btn btn-warning">Order Again</button> --}}
-                        {{!-- <button class="btn btn-warning">Edit Order</button> --}}
                       </div>
                     </div>
                     {{/if}}
                   {{/each}}   
                 </div>
                 </div>
-
+            </div>
+                {{!-- FORM TO CHECK AVAILABILITY --}}
+          {{!-- -------------------------------------------------------------------------------------------- --}}
+            <div class="availability-container p-4" id="new-order" style="display: none">
+              <div class="container">
+                <h2 class="text-warning">Check Availability</h2>
+                <!-- Check availability form -->
+                <form id="available-form" class="mt-4">
+                  <div class="form-group">
+                    <label for="product">Product:</label>
+                      <select class="form-select" aria-label="select-product" id="product">
+                        {{!-- dropdown menu of all product options in database  --}}
+                        <option selected>Choose product</option>
+                        {{#each productData}}
+                        <option id="option{{id}}" value="{{id}}" data-name="{{item_name}}">{{item_name}}</option>
+                        {{/each}}
+                      </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" class="form-control form-control-custom" id="quantity" min="1" placeholder="Type your quantity here" name="quantity" required>
+                  </div>
+                  <div class="button-group">
+                    <button type="button" id="checkAvailability" class="btn btn-warning check-availability-btn m-1">Check Availability</button>
+                    <div class="icon-container">
+                      <i class="fa-solid fa-angles-right nextTorder"></i>
+                    </div>
+                    <button type="submit" id="add-to-order" class="btn btn-warning availability disabled m-1">Add to Order</button>
+                      <div class="icon-container">
+                        <i class="fa-solid fa-angles-right nextTorder"></i>
+                      </div>
+                    <button type="submit" id="makeOrder" class="btn btn-warning availability disabled m-1">Place Order</button>
+                  </div>
+                </form>
+              </div>
             </div>
 
+              <!-- FORM TO PLACE ORDER -->
+                {{!-- -------------------------------------------------------------------------------------------- --}}
+              <!-- FORM TO PLACE ORDER -->
+            <div class="place-order-main-container m-4" style="display: none;">
+              <div>
+                <h2 class="m-2">Place Your Order</h2>
+                <form id="orderForm" class="mt-2 order-form">
 
-            {{!-- FORM TO CHECK AVAILABILITY --}}
-       {{!-- -------------------------------------------------------------------------------------------- --}}
+                  <div class="form-group">
+                    <label for="companyName">Company:</label>
+                      <select class="form-select" aria-label="select-company" id="companyName">
+                        {{!-- dropdown menu of all company options in database  --}}
+                        <option selected>Select company</option>
+                        {{#each customerData}}
+                        <option value="{{id}}">{{company_name}}</option>
+                        {{/each}}
+                    </select>
+                  </div>
 
-<div class="availability-container" id="new-order" style="display: none">
-  <div class="container">
-    <h2 class="mt-5 orderTitle">Availability</h2>
-    <!-- Check availability form -->
-    <form id="available-form" class="mt-4">
-      <div class="form-group">
-        <label for="product">Product:</label>
-        <input type="text" class="form-control form-control-custom" id="product" name="product" placeholder="Type your product here" required>
-      </div>
-      <div class="form-group">
-        <label for="quantity">Quantity:</label>
-        <input type="number" class="form-control form-control-custom" id="quantity" min="1" placeholder="Type your quantity here" name="quantity" required>
-      </div>
-      <div class="button-group">
-        <button type="button" id="checkAvailability" class="btn btn-primary check-availability-btn">Check Availability</button>
-        <div class="icon-container">
-          <i class="fa-solid fa-angles-right nextTorder"></i>
-        </div>
-        <button type="submit" id="makeOrder" class="btn btn-primary availability disabled">Make an order</button>
-      </div>
-    </form>
-  </div>
-</div>
+                  <div class="m-3">
+                    <ul class="display-order-list">
+                      {{!-- empty section to render order choices --}}
+                    </ul>
+                  </div>
 
-<!-- FORM TO PLACE ORDER -->
-  {{!-- -------------------------------------------------------------------------------------------- --}}
-<!-- FORM TO PLACE ORDER -->
-<div class="place-order-main-container" style="display: none;">
-  <div>
-    <h2 class="mt-5 orderTitle">Place Your Order</h2>
+                  <div class="button-group">
+                    {{!-- <button type="button" id="go-back-availability" class="btn btn-primary">Back</button> --}}
+                    {{!-- <div class="icon-container">
+                      <i class="fa-solid fa-angles-left"></i>
+                    </div> --}}
 
-    <form id="orderForm" class="mt-4 order-form">
-      <div class="form-group">
-        <label class="orderTitle" for="companyName">Company's name:</label>
-        <input type="text" class="form-control form-control-custom" id="companyName" name="companyName" placeholder="Type your full name" required>
-      </div>
+                    <button type="submit" id="placeOrder" class="btn btn-primary">Place order</button>
+                    {{!-- for future development --}}
+                    {{!-- <div class="icon-container">
+                      <i class="fa-solid fa-angles-right nextTorder"></i>
+                    </div> --}}
 
-      <div class="form-group">
-        <label class="orderTitle" for="orderProduct">Product:</label>
-        <input type="text" class="form-control form-control-custom" id="orderProduct" name="orderProduct" placeholder="Type your product here" required>
-      </div>
-
-      <div class="form-group">
-        <label class="orderTitle" for="orderQuantity">Quantity:</label>
-        <input type="number" class="form-control form-control-custom" id="orderQuantity" min="1" placeholder="Type your quantity here" name="orderQuantity" required>
-      </div>
-
-      <div class="button-group">
-        <button type="button" id="goBackAvailability" class="btn btn-primary">Back</button>
-        <div class="icon-container">
-          <i class="fa-solid fa-angles-left"></i>
-        </div>
-
-        <button type="submit" id="placeOrder" class="btn btn-primary">Place Order</button>
-        <div class="icon-container">
-          <i class="fa-solid fa-angles-right nextTorder"></i>
-        </div>
-
-        <button type="submit" id="paymentOrder" class="btn btn-primary disabled">Payment</button>
-      </div>
-    </form>
-  </div>
-</div>
+                    {{!-- <button type="submit" id="makeOrder" class="btn btn-primary availability disabled">Payment</button> --}}
+                  </div>
+                </form>
+              </div>
+            </div>
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
 
 <script src="/js/orders.js"></script>
