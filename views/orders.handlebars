@@ -3,19 +3,19 @@
 </div>
 
 <div class="container">
-    <div class="row">
-        <figure class="col-md-6 col-sm-12">
+    <div class="row d-flex">
+        <figure class="col-md-5 col-sm-12">
             <img class="img-fluid custom-image" src="/images/island.png" alt="Green and black pixelated island with monster tentacles coming out of it.">
         </figure>
 
         <div class="col-md-6 col-sm-12">
-          <div class="d-flex flex-column">
+          <div class="d-flex flex-column row">
                 <div class="d-flex justify-content-evenly">
                   <button class="btn btn-warning view-closed">Toggle closed orders</button>
                   <button class="btn btn-warning order-toggle">Create an order</button>
                 </div>
                 <h3 class="mt-2">Open Orders:</h3>
-                <div class="row open-orders-div gap-2 m-2">
+                <div class="open-orders-div gap-1 m-2 d-flex flex-wrap justify-content-center">
                    {{#each orderData}} 
                       {{#unless this.isFulfilled}}
                     <div class="card text-white bg-success mb-3" style="width: 18rem;">
@@ -44,7 +44,7 @@
 
                 <div id="closed-order-div" style="display: none">
                   <h3 class="m-2">Closed Orders:</h3>
-                <div class="m-4 gap-2 row">
+                <div class="m-4 gap-2 row d-flex flex-wrap justify-content-center">
                    {{#each orderData}}
                       {{#if this.isFulfilled}}
                     <div class="card text-white bg-secondary mb-3" style="width: 16rem;">
@@ -122,7 +122,7 @@
                     </ul>
                   </div>
                   <div class="button-group">
-                    <button type="submit" id="placeOrder" class="btn btn-primary">Place order</button>
+                    <button type="submit" id="placeOrder" class="btn bg-warning">Place order</button>
                   </div>
                 </form>
               </div>

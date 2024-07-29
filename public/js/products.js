@@ -37,7 +37,11 @@ const addProduct = async (event) => {
         title: 'Error!',
         text: error.message,
         icon: 'error',
-        confirmButtonText: 'Okay'
+        confirmButtonText: 'Okay',
+        customClass: {
+          popup: 'custom-error-popup',
+          confirmButton: 'bg-warning'
+        }
       });
     }
   }
@@ -93,7 +97,7 @@ const editProduct = async (event) => {
           confirmButtonText: 'Okay',
           customClass: {
             popup: 'custom-confirm-popup',
-            confirmButton: 'custom-confirm-button'
+            confirmButton: 'custom-confirm-button',
           }
         }).then(() => {
           document.location.replace('/products');
@@ -106,7 +110,11 @@ const editProduct = async (event) => {
         title: 'Error!',
         text: error.message,
         icon: 'error',
-        confirmButtonText: 'Okay'
+        confirmButtonText: 'Okay',
+        customClass: {
+          popup: 'custom-error-popup',
+          confirmButton: 'bg-warning',
+        }
       });
     }
   }; 
@@ -155,7 +163,11 @@ const deleteProduct = async (event) => {
             title: 'Error!',
             text: error.message,
             icon: 'error',
-            confirmButtonText: 'Okay'
+            confirmButtonText: 'Okay',
+            customClass: {
+              popup: 'custom-error-popup',
+              confirmButton: 'bg-warning',
+            }
           });
         }
       }

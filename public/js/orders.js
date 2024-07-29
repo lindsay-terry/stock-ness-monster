@@ -206,7 +206,6 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       event.preventDefault();
       const productID = productInputEl.value;
-      console.log(productID);
       const quantity = parseInt(quantityInputEl.value.trim(), 10);
 
       if (productID && quantity > 0) {
@@ -299,7 +298,6 @@ document
       message.innerHTML = 'Continue to add items or proceed to make an order'
       document.getElementById('makeOrder').classList.remove('disabled');
       availabilityFormEl.reset();
-      console.log(holdOrder);
 })
 
 //event listener to trigger place order sequence
@@ -307,7 +305,6 @@ document
   .getElementById('makeOrder')
   .addEventListener('click', function (event) {
       event.preventDefault();
-      console.log(holdOrder);
       placeOrder();
   })
 
@@ -332,7 +329,6 @@ const placeOrder = () => {
 // ---------------------------------------------------------------
 const handleOrderSubmit = async (event) => {
   event.preventDefault();
-  console.log(holdOrder);
   try {
     const company = companyNameInput.value;
     const productOrder = holdOrder.map(item => item.product_id);
