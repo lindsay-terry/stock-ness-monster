@@ -34,3 +34,11 @@ document
 .addEventListener('click', function() {
     document.location.href = '/';
 });
+
+//event listener for category button to send to categories page
+
+document
+    .querySelector('#category-btn')
+    .addEventListener('click', function() {
+        document.location.href = '/categories'
+});

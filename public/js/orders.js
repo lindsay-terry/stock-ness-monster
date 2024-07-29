@@ -335,11 +335,9 @@ const handleOrderSubmit = async (event) => {
   console.log(holdOrder);
   try {
     const company = companyNameInput.value;
-    console.log(company);
     const productOrder = holdOrder.map(item => item.product_id);
     const quantityOrder = holdOrder.map(item => parseInt(item.quantity, 10));
 
-   
     if (
       company !== 'Select company' &&
       Array.isArray(productOrder) && productOrder.length > 0 &&
