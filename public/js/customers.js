@@ -1,19 +1,12 @@
-//function to toggle display of add customer form
-const toggleCustomerForm = async(event) => {
-    const form = document.querySelector('#add-customer-form');
-    if (form.getAttribute('style') === 'display: none') {
-        form.setAttribute('style', 'display: block;');
-    } else {
-        form.setAttribute('style', 'display: none');
-    };
-};
 //function to get access to elements related to edit and delete
 const getAccess = (id) => {
     const nameInput = document.querySelector(`#company-name-${id}`);
     const accountInput = document.querySelector(`#edit-account-manager-dropdown${id}`);
+
     //access to edit and delete buttons
     const editBtn = document.getElementById(`edit-${id}`);
     const deleteBtn = document.getElementById(`del-${id}`);
+
     // access to confirm and cancel buttons
     const confirmBtn = document.getElementById(`confirm-${id}`);
     const cancelBtn = document.getElementById(`cancel-${id}`);
@@ -23,12 +16,15 @@ const getAccess = (id) => {
 const enableEditForm = async (event) => {
     const id = event.target.getAttribute('data-id');
     const { nameInput, accountInput, editBtn, deleteBtn, confirmBtn, cancelBtn } = getAccess(id);
+
     //show confirm and cancel buttons
     confirmBtn.classList.remove('d-none');
     cancelBtn.classList.remove('d-none');
+
     //hide edit and delete buttons
     editBtn.classList.add('d-none');
     deleteBtn.classList.add('d-none');
+
     //enable input fields
     nameInput.disabled = false;
     accountInput.disabled = false;
@@ -36,12 +32,15 @@ const enableEditForm = async (event) => {
 const handleCancel = async (event) => {
     const id = event.target.getAttribute('data-id');
     const { nameInput, accountInput, editBtn, deleteBtn, confirmBtn, cancelBtn } = getAccess(id);
+
     //show edit and delete buttons
     editBtn.classList.remove('d-none');
     deleteBtn.classList.remove('d-none');
+
     //hide confirm and cancel buttons
     confirmBtn.classList.add('d-none');
     cancelBtn.classList.add('d-none');
+    
     //disable input fields
     nameInput.disabled = true;
     accountInput.disabled = true;
@@ -260,7 +259,3 @@ document
             handleAddCustomer();
         }
     });
-//submit button event listener to toggle add customer form
-document
-    .querySelector('.add-cus-btn')
-    .addEventListener('click', toggleCustomerForm);

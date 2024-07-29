@@ -73,7 +73,7 @@ router.get('/report', withAuth, async (req, res) => {
 // Route to products page
 router.get('/products', withAuth, async (req, res) => {
     try {
-        const productData = await Product.findAll({ include: [{ model: Category }] });
+        const productData = await Product.findAll({ include: [{ model: Category }], order: [['item_name', 'ASC']] });
         const products = productData.map(product => product.toJSON());
 
         const categoryData = await Category.findAll();
@@ -91,7 +91,7 @@ router.get('/products', withAuth, async (req, res) => {
 // Route to categories page
 router.get('/categories', withAuth, async (req, res) => {
   try {
-      const categoryData = await Category.findAll({ include: [{ model: Product }] });
+      const categoryData = await Category.findAll({ include: [{ model: Product }], order: [['name', 'ASC']] });
       const categories = categoryData.map(category => category.toJSON());
 
       const productData = await Product.findAll();
@@ -117,14 +117,19 @@ router.get('/orders', withAuth, async (req, res) => {
                     },
                  },
             ],
-        })
+            //sort by id so oldest orders created first appear higher on list
+            order: [
+                ['id', 'ASC']
+            ]
+        });
         const orderData = data.map(order => order.get({ plain: true }));
 
         const products = await Product.findAll({
             include: [
                 {   model: Category, },
             ],
-        })
+
+        });
         const productData = products.map(order => order.get({ plain: true }));
 
         const users = await User.findAll({
@@ -160,7 +165,11 @@ router.get('/customers', withAuth, async (req, res) => {
                     include: [{ model: Product }],
                 },
             ],
-        })
+            //sort customer alphabetically by company name
+            order: [
+                ['company_name', 'ASC']
+            ]
+        });
         const customerData = data.map(customer => customer.get({ plain: true }));
 
         const users = await User.findAll({
@@ -185,7 +194,11 @@ router.get('/users', withAuth, async (req, res) => {
                     model: Customer,
                 },
             ],
-        })
+            //sorts users alphabetically by last name
+            order: [
+                ['last_name', 'ASC']
+            ]
+        });
         const userData = data.map(user => {
             const serializedUser = user.get({ plain: true });
             if (serializedUser.Customer) {

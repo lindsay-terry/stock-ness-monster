@@ -18,10 +18,6 @@ body {
   font-family: Quicksand, sans-serif;
   font-size: 120%;
   min-width: 350px;
-  margin: 0;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
 h1 {
@@ -32,10 +28,6 @@ h1 {
 }
 .main-content{
   flex: 1;
-  padding-bottom: 120px;
-}
-.custom-navbar {
-  background-color: var(--hunter-green);
 }
 
 /* Custom class for SweetAlert background */
@@ -83,12 +75,6 @@ box-sizing: border-box;
 .form-group {
 margin-top: 1.2rem;
 width: 100%; 
-}
-
-.btn-primary {
-margin-top: 1.1rem;
-background-color: #f8cb52;
-color: black;
 }
 
 .makeOrder {
@@ -177,24 +163,26 @@ box-shadow: 3px 3px 25px 5px var(--rich-black);
 
 .pc-image-container {
   margin-right: 32px;
+  
 }
 
 .pc-image-container img {
   width: 100%;
   object-fit: cover;
   object-position: top;
+  box-shadow: 3px 3px 25px 5px var(--rich-black);
 }
 
-/* if we want to change the width of the input fields */
-/* .accordion-body {
+.bc-image-container img {
   width: 100%;
-} */
-
+  object-fit: cover;
+  object-position: bottom;
+  box-shadow: 3px 3px 25px 5px var(--rich-black);
+}
 
 /* FOOTER STYLING */
 
 .footer {
-    background-color: #f6c244;
     padding: 1rem 0;
     box-shadow: 5px 5px 2px black;
     color: var(--dark-green);
@@ -238,9 +226,6 @@ box-shadow: 3px 3px 25px 5px var(--rich-black);
         background-color: var(--hunter-green);
        }
 
-.navbar-toggler{
-  background-color: #f6c244;
-}
 
 @media (max-width: 991.98px) {
        
@@ -252,11 +237,6 @@ box-shadow: 3px 3px 25px 5px var(--rich-black);
       }
     }
 
-/* ------------------------------ */
-
-
-/* BODY */
-/* ---------- */
 @media screen and (max-width: 767px) {
   .pc-main {
     flex-direction: column;
@@ -272,7 +252,6 @@ box-shadow: 3px 3px 25px 5px var(--rich-black);
     height: 200px;
     overflow: hidden;
     margin-top: 16px;
-    box-shadow: 3px 3px 25px 5px var(--rich-black);
   }
 }
 
@@ -281,7 +260,6 @@ box-shadow: 3px 3px 25px 5px var(--rich-black);
     justify-content: center;
   }
 }
-
 
 /* FOOTER RESPONSIVE */
 /* ------------------------- */
@@ -304,7 +282,6 @@ box-shadow: 3px 3px 25px 5px var(--rich-black);
 
 @media (min-width: 769px) {
     .footer {
-        position: fixed;
         bottom: 0;
         width: 100%;
         margin: 0;

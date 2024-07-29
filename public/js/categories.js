@@ -34,7 +34,11 @@ const addCategory = async (event) => {
         title: 'Error!',
         text: error.message,
         icon: 'error',
-        confirmButtonText: 'Okay'
+        confirmButtonText: 'Okay',
+        customClass: {
+          popup: 'custom-error-popup',
+          confirmButton: 'bg-warning'
+        }
       });
     }
   }
@@ -94,7 +98,11 @@ const editCategory = async (event) => {
         title: 'Error!',
         text: error.message,
         icon: 'error',
-        confirmButtonText: 'Okay'
+        confirmButtonText: 'Okay',
+        customClass: {
+          popup: 'custom-error-popup',
+          confirmButton: 'bg-warning',
+        }
       });
     }
   }; 
@@ -143,7 +151,11 @@ const deleteCategory = async (event) => {
             title: 'Error!',
             text: error.message,
             icon: 'error',
-            confirmButtonText: 'Okay'
+            confirmButtonText: 'Okay',
+            customClass: {
+              popup: 'custom-error-popup',
+              confirmButton: 'bg-warning',
+            }
           });
         }
       }
