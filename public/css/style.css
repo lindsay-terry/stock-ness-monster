@@ -7,12 +7,21 @@
   --error: rgb(243, 69, 69);
 }
 
+html{
+  height: 100%;
+  margin: 0;
+}
+
 body {
   background-color: var(--hunter-green);
   color: var(--tea-green);
   font-family: Quicksand, sans-serif;
   font-size: 120%;
   min-width: 350px;
+  margin: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 h1 {
@@ -21,7 +30,10 @@ h1 {
   color: var(--tea-green);
   text-shadow: 5px 5px var(--dark-green);
 }
-
+.main-content{
+  flex: 1;
+  padding-bottom: 120px;
+}
 .custom-navbar {
   background-color: var(--hunter-green);
 }
@@ -126,38 +138,6 @@ width: 100%;
 color: var(--dark-green);
 }
 
-
-
-/* FOOTER */
-
-.footer {
-    background-color: #f6c244;
-    padding: 20px 0;
-    box-shadow: 5px 5px 2px black;
-
-  }
-  .footer a {
-    color: var(--dark-green);
-     text-decoration: none;
-     font-weight: bold;
-     text-shadow: 1rem;
-  }
-
-  .list-inline-item i {
-    font-size: 14px;
-    color: var(--dark-green);
-  }
-
-  .list-inline{
-    gap: 30px;
-  }
-
-  .text-center span{
-    color: black;
-
-  }
-
-
 /* Accordion */
 .accordion-button:focus {
 box-shadow: none;
@@ -210,6 +190,73 @@ box-shadow: 3px 3px 25px 5px var(--rich-black);
   width: 100%;
 } */
 
+
+/* FOOTER STYLING */
+
+.footer {
+    background-color: #f6c244;
+    padding: 1rem 0;
+    box-shadow: 5px 5px 2px black;
+    color: var(--dark-green);
+    text-align: center;
+    font-weight: bold;
+}
+
+.footer a {
+    color: var(--dark-green);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer .container {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.list-inline-item i {
+    font-size: 14px;
+    color: var(--dark-green);
+}
+
+.list-inline {
+    gap: 30px;
+}
+
+.text-center span {
+    color: black;
+}
+
+
+/* RESPONSIVNESS */
+/* ---------------------- */
+
+
+/* NAVBAR */
+/* ------------ */
+
+.navbar{
+        background-color: var(--hunter-green);
+       }
+
+.navbar-toggler{
+  background-color: #f6c244;
+}
+
+@media (max-width: 991.98px) {
+       
+      .navbar-nav .nav-item {
+        margin-bottom: 10px;
+      }
+      .navbar-nav{
+        margin-top: 10px;
+      }
+    }
+
+/* ------------------------------ */
+
+
+/* BODY */
+/* ---------- */
 @media screen and (max-width: 767px) {
   .pc-main {
     flex-direction: column;
@@ -233,4 +280,40 @@ box-shadow: 3px 3px 25px 5px var(--rich-black);
   .pc-input-container {
     justify-content: center;
   }
+}
+
+
+/* FOOTER RESPONSIVE */
+/* ------------------------- */
+
+@media (max-width: 768px) {
+    .footer {
+        padding: 0.5rem 0;
+        font-size: 14px;
+    }
+
+    .list-inline {
+        gap: 15px;
+    }
+
+    .list-inline-item i {
+        font-size: 12px;
+    }
+}
+
+
+@media (min-width: 769px) {
+    .footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        margin: 0;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .footer {
+        position: static; 
+    }
 }
