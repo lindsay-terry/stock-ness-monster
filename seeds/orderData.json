@@ -1,0 +1,10 @@
+[
+    {
+        "isFulfilled": false,
+        "customer_id": 1     
+    },
+    {
+        "isFulfilled": true,      
+        "customer_id": 2     
+    }
+]

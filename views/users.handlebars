@@ -1,0 +1,102 @@
+<div class="d-flex justify-content-center">
+    <h1 class="m-4">My Team</h1>
+</div>
+
+<div class="container">
+    {{!-- add user button section --}}
+    <section class="d-grid gap-3 col-7 mx-auto mb-4">
+        <button type="button" class="btn btn-warning btn-lg" id="add-usr">Add A User</button>
+        {{!-- start form for adding new user  --}}
+            <form class="" id="user-form" style="display: none">
+                <div class="form-floating mb-1">
+                    <input type="text" class="form-control" id="username" placeholder="your-username">
+                    <label for="username">Username</label>
+                </div>
+                {{!-- partial to reuse components of user form  --}}
+                {{> user-form}}
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-warning btn-lg" id="create-usr">Create User</button>
+                </div>
+            </form>
+    </section>
+    {{!-- end form for adding new user --}}
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="container d-flex flex-column d-grid gap-2 col-10 mx-auto mb-2 modal-container">
+                {{#each userData}}
+                <button type="button" class="btn btn-warning btn-lg" data-bs-toggle="modal" data-bs-target="#myModal{{id}}">
+                    {{this.first_name}} {{this.last_name}}
+                </button>
+
+                {{!-- modal to view user data  --}}
+            <div class="modal fade" id="myModal{{id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="myModal{{id}}Label" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content modal-style">
+                        <div class="modal-header">
+                            <h2 class="modal-title fs-5" id="myModal{{id}}Label">{{this.first_name}} {{this.last_name}}</h2>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Accounts:
+                                <ul>
+                                    {{#each customers}}
+                                    <li>{{this.company_name}}</li>
+                                    {{/each}}
+                                </ul>
+                            </p>
+                            <p>
+                                Username: {{this.username}}
+                            </p>
+
+                            <!-- Added form for editing user -->
+                            <div id="edit-form-container-{{id}}" style="display: none;">
+                                <form id="edit-user-form-{{id}}" data-id="{{id}}">
+                                    <div class="form-floating mb-1">
+                                        <input type="text" class="form-control" id="edit-first-name-{{id}}" placeholder="First Name" value="{{this.first_name}}">
+                                        <label for="edit-first-name-{{id}}">First Name</label>
+                                    </div>
+                                    <div class="form-floating mb-1">
+                                        <input type="text" class="form-control" id="edit-last-name-{{id}}" placeholder="Last Name" value="{{this.last_name}}">
+                                        <label for="edit-last-name-{{id}}">Last Name</label>
+                                    </div>
+                                    <div class="form-floating mb-1">
+                                        <input type="text" class="form-control" id="edit-username-{{id}}" placeholder="Username" value="{{this.username}}">
+                                        <label for="edit-username-{{id}}">Username</label>
+                                    </div>
+                                    <div class="form-floating mb-1">
+                                        <input type="password" class="form-control" id="edit-password-{{id}}" placeholder="New Password">
+                                        <label for="edit-password-{{id}}">New Password</label>
+                                    </div>
+                                    <!-- Added Confirm Password Field -->
+                                    <div class="form-floating mb-1">
+                                        <input type="password" class="form-control" id="confirm-edit-password-{{id}}" placeholder="Confirm New Password">
+                                        <label for="confirm-edit-password-{{id}}">Confirm New Password</label>
+                                    </div>
+                                    <div class="d-flex justify-content-center">
+                                        <button type="submit" class="btn btn-warning btn-lg">Save Changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="container d-flex justify-content-evenly button-area">
+                                <button type="button" class="btn btn-danger del-btn" data-id="{{id}}">Delete</button>
+                                <!-- Removed data-bs-dismiss from Edit button -->
+                                <button type="button" class="btn btn-warning edit-btn" data-id="{{id}}">Edit</button>
+                                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                {{!-- end modal  --}}
+                {{/each}}
+            </div>
+        </div>
+        <figure class="col-md-6 col-sm-12">
+            <img class="img-fluid custom-image my-2" src="/images/building.png" alt="Pixelated green monster threatening skyscrapers">
+        </figure>
+    </div>
+</div>
+
+<script src="/js/users.js"></script>

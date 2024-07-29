@@ -1,0 +1,47 @@
+[
+    {
+        "item_name": "Keyboard",
+        "price": "9.99",
+        "stock": 100,
+         "category_id": 1
+        
+        
+    },
+    {
+        "item_name": "Mouse",
+        "price": "19.99",
+        "stock": 50,
+        "category_id": 1
+        
+    },
+    {
+        "item_name": "clothes",
+        "price": "59.99",
+        "stock": 26,
+        "category_id": 2
+       
+    },
+    {
+        "item_name": "Laptop",
+        "price": "109.99",
+        "stock": 17,
+        "category_id": 1
+       
+    },
+    {
+        "item_name": "Computer",
+        "price": "229.99",
+        "stock": 48,
+        "category_id": 1
+      
+    },
+
+    {
+        "item_name": "Car",
+        "price": "20000",
+        "stock": 47,
+        "category_id": 4
+      
+    }
+
+]

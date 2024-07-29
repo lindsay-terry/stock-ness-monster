@@ -1,0 +1,242 @@
+:root {
+  --tea-green: #D0EEBEff;
+  --pistachio: #86C06Cff;
+  --dark-green: #173531ff;
+  --rich-black: #071821ff;
+  --hunter-green: #306850ff;
+  --error: rgb(243, 69, 69);
+}
+
+body {
+  background-color: var(--hunter-green);
+  color: var(--tea-green);
+  font-family: Quicksand, sans-serif;
+  font-size: 120%;
+  min-width: 350px;
+}
+
+h1 {
+  font-family: Creepster, sans-serif;
+  font-size: 70px;
+  color: var(--tea-green);
+  text-shadow: 5px 5px var(--dark-green);
+}
+.main-content{
+  flex: 1;
+}
+
+/* Custom class for SweetAlert background */
+.custom-confirm-popup {
+background-color: var(--hunter-green);
+color: var(--tea-green);
+}
+
+.custom-error-popup {
+background-color: var(--error);
+color: var(--rich-black);
+}
+
+/* Custom class for SweetAlert confirm button */
+.custom-confirm-button {
+background-color: var(--pistachio);
+color: var(--dark-green);
+}
+
+/* styling for modals  */
+.modal-style {
+background-color: var(--rich-black);
+}
+
+/* text color for create a user form  */
+#user-form {
+color: var(--pistachio);
+}
+
+/* ORDERS */
+.availability-container {
+background-color: var(--dark-green);
+opacity: 0.8;
+box-shadow: 5px 5px 5px var(--pistachio);
+border-radius: 8px;
+}
+
+.form-group {
+margin-top: 1.2rem;
+width: 100%; 
+}
+
+#orderForm {
+display: none;
+flex-direction: column;
+}
+
+.place-order-main-container {
+display: none;
+background-color: var(--tea-green);
+color: var(--rich-black);
+box-shadow: 5px 5px 5px black;
+justify-content: center;
+border-radius: 10px;
+}
+
+.container {
+width: 100%;
+}
+
+/* Accordion */
+.accordion-button:focus {
+box-shadow: none;
+}
+
+/* custom card on homepage */
+.card-custom-header {
+background-color: var(--rich-black);
+color: var(--tea-green);
+}
+
+.card-custom-body {
+background-color: var(--dark-green);
+color: var(--tea-green);
+}
+
+/* custom image styling */
+.custom-image {
+box-shadow: 3px 3px 25px 5px var(--rich-black);
+}
+
+/* Products & Categories Page */
+.pc-main {
+  flex-direction: row;
+  justify-content: center;
+}
+
+.pc-display-container {
+  min-width: 300px;
+  margin-bottom: 16px;
+}
+
+.pc-input-container {
+  /* width: 100%; */
+  min-width: 200px;
+}
+
+.pc-image-container {
+  margin-right: 32px;
+  
+}
+
+.pc-image-container img {
+  width: 100%;
+  object-fit: cover;
+  object-position: top;
+  box-shadow: 3px 3px 25px 5px var(--rich-black);
+}
+
+.bc-image-container img {
+  width: 100%;
+  object-fit: cover;
+  object-position: bottom;
+  box-shadow: 3px 3px 25px 5px var(--rich-black);
+}
+
+/* FOOTER STYLING */
+
+.footer {
+    padding: 1rem 0;
+    box-shadow: 5px 5px 2px black;
+    color: var(--dark-green);
+    text-align: center;
+    font-weight: bold;
+}
+
+.footer a {
+    color: var(--dark-green);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer .container {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.list-inline-item i {
+    font-size: 14px;
+    color: var(--dark-green);
+}
+
+.list-inline {
+    gap: 30px;
+}
+
+.text-center span {
+    color: black;
+}
+
+/* NAVBAR */
+/* ------------ */
+
+.navbar{
+        background-color: var(--hunter-green);
+       }
+
+
+@media (max-width: 991.98px) {
+       
+      .navbar-nav .nav-item {
+        margin-bottom: 10px;
+      }
+      .navbar-nav{
+        margin-top: 10px;
+      }
+    }
+
+@media screen and (max-width: 767px) {
+  .pc-main {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .pc-display-container {
+    width: 100%;
+  }
+
+  .pc-image-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    margin-top: 16px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .pc-input-container {
+    justify-content: center;
+  }
+}
+
+/* FOOTER RESPONSIVE */
+/* ------------------------- */
+@media (max-width: 768px) {
+    .footer {
+        padding: 0.5rem 0;
+        font-size: 14px;
+    }
+
+    .list-inline {
+        gap: 15px;
+    }
+
+    .list-inline-item i {
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 769px) {
+    .footer {
+        bottom: 0;
+        width: 100%;
+        margin: 0;
+        position: static; 
+    }
+}

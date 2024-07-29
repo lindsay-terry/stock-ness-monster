@@ -1,0 +1,18 @@
+{{!-- title of page --}}
+<div class="d-flex justify-content-center">
+  <h1 class="m-4">Products</h1>
+</div>
+
+{{!-- all product display --}}
+<div class="pc-main container d-flex">
+  <div class="pc-display-container d-flex flex-column gap-4 col-6">
+    {{> add-product }}
+    {{> products-display }}
+  </div>
+  <figure class="pc-image-container col-6">
+      <img class="img-fluid custom-image" src="/images/swamp.png" alt="Green pixelated swamp with creature">
+  </figure>
+</div>
+
+<script src="/js/products.js"></script>
+<script src="/js/categories.js"></script>

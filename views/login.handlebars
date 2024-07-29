@@ -1,0 +1,48 @@
+ <div class="d-flex justify-content-center">
+    <h1 class="m-4">Login</h1>
+</div>
+ 
+ 
+ 
+ <div class="container">
+    <div class="row">
+    {{!-- login form  --}}
+    <form class="login-form col-md-6 col-sm-12">
+
+        {{!-- display please log in message if user is not logged in --}}
+        {{#if logged_in}}
+            <div>
+            </div>
+        {{else}}
+            <div class="alert custom-error-popup m-4 ">
+                <h5>Please log in to view more<h5>
+            </div>
+        {{/if}}
+
+        <div class="form-group">
+            {{!-- username field --}}
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" aria-describedby="username" placeholder="Enter username">
+        </div>
+        <div class="form-group">
+            {{!-- password field  --}}
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password">
+        </div>
+        <div>
+            {{!-- empty p tag to hold error response --}}
+            <p id="response-p"></p>
+        </div>
+        {{!-- submit button tied to form event listener --}}
+        <button type="submit" id='login-button'class="btn btn-warning mt-2">Login</button>
+    </form>
+
+    <figure class="col-md-6 col-sm-12 my-2">
+        <img class="img-fluid" src="/images/octopus.png" alt="Pixelated octopus legs surrounding little boat in water. ">
+    </figure>
+
+    </div>
+</div>
+
+
+<script src="./js/login.js"></script>

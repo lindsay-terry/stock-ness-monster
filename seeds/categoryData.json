@@ -1,0 +1,17 @@
+[
+    { "name": "Electronics" },
+
+    { "name" : "Fashion" },
+    
+    { "name": "Home & Furniture" },
+
+    { "name": "Books & Media" },
+
+    { "name": "Automotive" },
+
+    { "name": "Office Supplies" },
+
+    { "name": "Garden & Outdoor" },
+
+    { "name": "Arts & Crafts" }
+]

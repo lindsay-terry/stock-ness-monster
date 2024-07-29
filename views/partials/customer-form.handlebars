@@ -1,0 +1,13 @@
+<div class="form mb-3">
+    <label for="company-name" class="text-warning">Company Name</label>
+    <input type="text" class="form-control bg-dark text-warning" id="company-name" placeholder="Company Name">
+</div>
+<select class="form-select bg-dark text-warning" aria-label="account-manager-dropdown" id="account-manager-dropdown">
+  <option selected>Select an account manager</option>
+  {{#each userData}}
+  <option value="{{id}}">{{first_name}} {{last_name}}</option>
+  {{/each}}
+</select>
+<div class="d-flex justify-content-center m-2 submit-div">
+  <button class="btn btn-warning submit-form" type="submit">Submit</button>
+</div>
