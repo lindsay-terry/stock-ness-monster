@@ -22,7 +22,7 @@ Welcome to the Stock-ness Monster! Inventory so accurate you won't believe it ex
 
 
 ## Installation
-There is no installation needed. Simply navigate to the deployed link to start using the application.
+There is no installation needed. As long as you have credentials to use the application, imply navigate to the deployed link and log in to start using the application.
 
 
 ## Usage

@@ -7,11 +7,6 @@
   --error: rgb(243, 69, 69);
 }
 
-html{
-  height: 100%;
-  margin: 0;
-}
-
 body {
   background-color: var(--hunter-green);
   color: var(--tea-green);
@@ -58,7 +53,6 @@ color: var(--pistachio);
 }
 
 /* ORDERS */
-
 .availability-container {
 background-color: var(--dark-green);
 opacity: 0.8;
@@ -66,40 +60,9 @@ box-shadow: 5px 5px 5px var(--pistachio);
 border-radius: 8px;
 }
 
-.form-control-custom {
-background-color: white;
-width: 100%;
-box-sizing: border-box; 
-}
-
 .form-group {
 margin-top: 1.2rem;
 width: 100%; 
-}
-
-.makeOrder {
-opacity: 0.2; 
-pointer-events: none; 
-}
-
-.button-group {
-display: flex;
-gap: 20px; 
-width: 100%; 
-}
-
-.icon-container {
-display: flex;
-align-items: center;
-justify-content: center;
-}
-
-.nextTorder {
-font-size: 1.5rem; 
-}
-
-.icon-container i {
-margin-top: 15px;
 }
 
 #orderForm {
@@ -118,10 +81,6 @@ border-radius: 10px;
 
 .container {
 width: 100%;
-}
-
-.orderTitle{
-color: var(--dark-green);
 }
 
 /* Accordion */
@@ -214,11 +173,6 @@ box-shadow: 3px 3px 25px 5px var(--rich-black);
     color: black;
 }
 
-
-/* RESPONSIVNESS */
-/* ---------------------- */
-
-
 /* NAVBAR */
 /* ------------ */
 
@@ -263,7 +217,6 @@ box-shadow: 3px 3px 25px 5px var(--rich-black);
 
 /* FOOTER RESPONSIVE */
 /* ------------------------- */
-
 @media (max-width: 768px) {
     .footer {
         padding: 0.5rem 0;
@@ -279,18 +232,11 @@ box-shadow: 3px 3px 25px 5px var(--rich-black);
     }
 }
 
-
 @media (min-width: 769px) {
     .footer {
         bottom: 0;
         width: 100%;
         margin: 0;
-    }
-}
-
-
-@media (max-width: 768px) {
-    .footer {
         position: static; 
     }
 }
