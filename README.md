@@ -25,7 +25,12 @@ Welcome to the Stock-ness Monster! Inventory so accurate you won't believe it ex
 There is no installation needed. As long as you have credentials to use the application, simply navigate to the deployed link and log in to start using the application.
 
 
+
 ## Usage
+Use the provided credentials to access the application:
+        "username": "janesmith456",
+        "password": "securepassword2"
+
 To use the Stock-ness Monster application simply navigate to the link below. This application uses authentication so the user must be logged in to view all pages. Once logged in simply navigate through the pages via the navigation menu at the top. On the Home page the user is presented with a simple landing page, welcoming them, via their entered first name. On the Orders page the user can view open and closed orders, create and place orders while checking the products availability, and delete orders without impacting the inventory. And lastly, close the order, which completes the loop and pulls stock from the inventory. On the Products page the user can view all products, edit and delete those products, and add a new product with a category. The application also features a Categories page to execute all the same functions regarding categories, as well as shows a list of products associated with each category. On the Customers page the user can view all the customers (aka the companies) they work with, and see the account manager associated with the customer, and the order data. The user can also add, edit and delete customers. On the My Team (Users) page, the user can view all the team members, aka the account managers, and see what accounts are associated to them. The user can also add, edit(anyone forget their password?), and delete team members. Lastly, on the Reports page, the user can view the latest report with all the current data from each page, and also view all reports with each report time stamped.
 
 All the while, each page is receiving these changes in real time and reflecting accurate, up to date information.
