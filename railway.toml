@@ -1,0 +1,4 @@
+[post-deploy]
+commands = [
+  "npm run seed"  # Command to run your seed script
+]
